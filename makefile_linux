@@ -1,0 +1,20 @@
+#Definiciones.
+
+#OPTIMIZACION=-O3
+#SIMBOLOS_DEBUG=-g
+FLAGS_BASE=-Wno-deprecated -Wall -ansi -pedantic -std=c++11
+
+CFLAGS=-c $(SIMBOLOS_DEBUG) $(OPTIMIZACION) $(FLAGS_BASE)
+CFLAGS_TARGET_FINAL=$(SIMBOLOS_DEBUG) $(OPTIMIZACION) $(FLAGS_BASE)
+CC=g++
+LIMPIAR=rm objects/*; rmdir objects;
+
+DIR_HOME=/home/dani/programacion/
+DIR_LIBDAN2=$(DIR_HOME)libdansdl2
+DIR_TOOLS=$(DIR_HOME)herramientas_proyecto/
+DIR_O_TOOLS=$(DIR_HOME)herramientas_proyecto/objects/
+CREATE_DIR_OBJECTS=mkdir -p objects; touch objects/dummy
+
+INCLUDES=-I $(DIR_LIBDAN2) -I $(DIR_TOOLS)
+
+include _makefile_common

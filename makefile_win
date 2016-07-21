@@ -1,0 +1,23 @@
+#Definiciones.
+
+OPTIMIZACION=-O3
+#SIMBOLOS_DEBUG=-g
+UNIDAD_DISCO=C
+MINGW32_INCLUDE=$(UNIDAD_DISCO):/mingw/include
+MINGW32_LIB=$(UNIDAD_DISCO):/mingw/lib
+SDL2_LIB=$(UNIDAD_DISCO):/SDLDev/lib
+DIR_SDL2=$(UNIDAD_DISCO):/SDLDev/include
+DIR_SDL2_B=$(UNIDAD_DISCO):/SDLDev/include/SDL2
+DIR_HOME=$(UNIDAD_DISCO):/Devel/
+DIR_LIBDAN2=$(DIR_HOME)libdansdl2-master
+DIR_TOOLS=$(DIR_HOME)herramientas_proyecto-master/
+
+CFLAGS= -DWINCOMPIL=1 -c -Wno-deprecated -Wall -ansi -pedantic -std=c++11
+CFLAGS_TARGET_FINAL=-DWINCOMPIL=1 -Wno-deprecated -Wall -ansi -pedantic -std=c++11
+CC=g++
+LIMPIAR=rmdir objects /s /q;
+CREATE_DIR_OBJECTS=if not exist objects mkdir objects & copy nul objects/dummy > nul
+
+INCLUDES=-I$(DIR_SDL2) -I$(DIR_SDL2_B) -I$(DIR_LIBDAN2) -I$(DIR_TOOLS) -I$(MINGW32_INCLUDE) 
+
+include _makefile_common
