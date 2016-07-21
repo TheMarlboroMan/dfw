@@ -43,9 +43,9 @@ class controller_interface
 
 	void				set_state(int v) {states->set(v);}
 
-	virtual void 			preloop(input&, float delta)=0;
+	virtual void 			preloop(input&, float delta, int fps)=0;
 	virtual void 			loop(input&, float delta)=0;
-	virtual void 			postloop(input&, float delta)=0;
+	virtual void 			postloop(input&, float delta, int fps)=0;
 	virtual void 			draw(ldv::screen&)=0;
 	virtual void 			awake()=0;
 	virtual void 			slumber()=0;

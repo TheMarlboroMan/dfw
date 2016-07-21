@@ -48,7 +48,7 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 	common_step(delta_step);
 	common_input(input_i, delta_step);
 
-	ci->preloop(input_i, delta_step);
+	ci->preloop(input_i, delta_step, kernel.get_fps());
 
 	//Aquí se consume el tiempo desde el último paso en bloques de "delta_step".
 	while(kernel.consume_loop(delta_step))
@@ -96,7 +96,7 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 	}
 	else
 	{
-		ci->postloop(input_i, delta_step);
+		ci->postloop(input_i, delta_step, kernel.get_fps());
 
 		kernel.do_fps_count();
 
