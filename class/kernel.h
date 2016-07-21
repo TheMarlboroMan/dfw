@@ -38,7 +38,7 @@ class kernel
 
 	float 			get_delta_step() const {return delta_step;}
 	void 			set_delta_step(float v) {delta_step=v;}
-	void			do_fps_count() {fps_counter_i.tic();}
+	void			end_loop_step() {fps_counter_i.end_loop_step();}
 	void			init_loop_step() {fps_counter_i.init_loop_step();}
 	bool			consume_loop(float delta) {return fps_counter_i.consume_loop(delta);}
 	void			do_audio_queue() {audio_i->do_queue();}

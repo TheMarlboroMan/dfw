@@ -14,8 +14,6 @@ de la instancia de controles_SDL.*/
 namespace dfw
 {
 
-	//TODO: This is the one that I am doing now....
-
 class input
 {
 	////////////////////////

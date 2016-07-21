@@ -32,9 +32,6 @@ void kernel::init(const kernel_config_interface& kdi, const base_config& config)
 	log_i<<"Kernel inits controls..."<<std::endl;
 	input_i.configure(kdi.get_input_pairs()); 
 
-	//Inicialización controlador tiempo.
-	//TODO: I don't think this is needed anymore.
-	//fps_counter_i.init();
 	log_i<<"Kernel is ready..."<<std::endl;
 }
 

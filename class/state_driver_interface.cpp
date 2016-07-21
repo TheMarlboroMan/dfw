@@ -81,6 +81,9 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 		if(mri!=nullptr && message_q.size()) message_q.process(*mri);
 	}
 
+	kernel.end_loop_step();
+
+
 	if(states.is_change())
 	{
 		//Confirmación del cambio de states.
@@ -97,9 +100,6 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 	else
 	{
 		ci->postloop(input_i, delta_step, kernel.get_fps());
-
-		kernel.do_fps_count();
-
 		ci->draw(kernel.get_screen());
 
 		kernel.get_screen().update();
