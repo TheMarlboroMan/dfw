@@ -41,13 +41,7 @@ class kernel
 	void			do_fps_count() {fps_counter_i.tic();}
 	void			init_loop_step() {fps_counter_i.init_loop_step();}
 	bool			consume_loop(float delta) {return fps_counter_i.consume_loop(delta);}
-	void			do_audio_queue() {
-	//TODO TODO TODO
-	//Audio::procesar_cola_sonido();	
-		throw std::runtime_error("DO AUDIO QUEUE IS MISSING STILL");
-	
-	}
-
+	void			do_audio_queue() {audio_i->do_queue();}
 
 	///////////////////
 	// Propiedades

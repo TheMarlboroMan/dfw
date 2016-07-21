@@ -9,7 +9,7 @@ kernel::kernel(ldt::log& rlog, tools::arg_manager& carg)
 	audio_i(nullptr),
 	arg_manager_i(carg)
 {
-
+	log_i<<"Kernel is constructed"<<std::endl;
 }
 
 void kernel::init(const kernel_config_interface& kdi, const base_config& config)
