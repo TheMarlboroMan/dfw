@@ -27,8 +27,8 @@ input::lookup_result input::get_lookup(int i) const
 		auto f=[&resultado, this, i](const t_map& mapa, lookup_result::types t)
 		{
 			resultado.type=t;
-			auto it=mapa.equal_range(i);
-			for(auto r=it.first; r!=it.second; ++r)
+			auto itr=mapa.equal_range(i);
+			for(auto r=itr.first; r!=itr.second; ++r)
 			{
 				resultado.val.push_back({r->second.sdl_key, r->second.device_index});
 			}
