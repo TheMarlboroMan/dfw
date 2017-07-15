@@ -21,6 +21,12 @@ class base_config
 
 	public:
 
+	//Multipurpose interface.
+	int get_int_from_path(const std::string& ppath) const {return token_from_path(ppath).get_int();}
+	bool get_bool_from_path(const std::string& ppath) const {return token_from_path(ppath).get_bool();}
+	std::string get_string_from_path(const std::string& ppath) const {return token_from_path(ppath).get_string();}
+
+	//Specific interface.
 	int get_file_version() const		{return token_from_path(get_key_file_version());}
 	int get_screen_double_buffer() const 	{return token_from_path(get_key_screen_double_buffer());}
 	int get_audio_volume() const		{return token_from_path(get_key_sound_volume());}
