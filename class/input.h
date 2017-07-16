@@ -21,8 +21,6 @@ class input
 
 	public:
 
-	
-
 	//Public structure to expose a configured input (for example button 3 of the 2nd joystick.
 	struct input_description
 	{
@@ -47,7 +45,6 @@ class input
 	input_description		get_current_description() const;
 	input_description		locate_description(int) const;
 	input_pair			from_description(const input_description&, int);
-
 
 	protected:
 
