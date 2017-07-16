@@ -21,7 +21,7 @@ void state_driver_interface::init(dfw::kernel& kernel)
 	}
 
 	ci=controllers[states.get_current()];
-	ci->awake();
+	ci->awake(kernel.get_input());
 	while(loop(kernel));
 }
 
@@ -90,8 +90,8 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 		int current=states.get_current();
 		int next=states.get_next();
 
-		controllers[current]->slumber();
-		controllers[next]->awake();
+		controllers[current]->slumber(input_i);
+		controllers[next]->awake(input_i);
 
 		ci=controllers[next];
 
