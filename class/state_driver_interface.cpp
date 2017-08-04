@@ -41,8 +41,8 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 {
 	//Aquí se mide el tiempo desde el último paso por este loop...
 	kernel.init_loop_step();
-	float delta_step=kernel.get_delta_step();
 
+	float delta_step=kernel.get_delta_step();
 	auto& input_i=kernel.get_input();
 
 	common_step(delta_step);

@@ -14,7 +14,7 @@ CFLAGS_TARGET_FINAL=$(DEBUG) $(OPTIMIZATION) $(FLAGS_BASE)
 CC=g++
 LIMPIAR=rm objects/*; rmdir objects;
 
-DIR_HOME=/home/dani/programacion/c++/
+DIR_HOME=/home/dani/programacion/
 DIR_LIBDAN2=$(DIR_HOME)libdansdl2
 DIR_TOOLS=$(DIR_HOME)herramientas_proyecto/
 DIR_O_TOOLS=$(DIR_HOME)herramientas_proyecto/objects/

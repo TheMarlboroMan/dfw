@@ -65,7 +65,8 @@ bool input::is_input_down(int i) const
 	{
 		case lookup_result::types::keyboard:
 			for(auto val : rl.val) 
-				if(sdlinput.is_key_down(val.val)) return true;
+				if(sdlinput.is_key_down(val.val)) 
+					return true;
 		break;
 		case lookup_result::types::mouse:
 			for(auto val : rl.val) 
