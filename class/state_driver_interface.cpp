@@ -100,7 +100,7 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 	else
 	{
 		ci->postloop(input_i, delta_step, kernel.get_fps());
-		ci->draw(kernel.get_screen());
+		ci->draw(kernel.get_screen(), kernel.get_fps());
 
 		kernel.get_screen().update();
 	}

@@ -46,7 +46,7 @@ class controller_interface
 	virtual void 			preloop(input&, float delta, int fps)=0;
 	virtual void 			loop(input&, float delta)=0;
 	virtual void 			postloop(input&, float delta, int fps)=0;
-	virtual void 			draw(ldv::screen&)=0;
+	virtual void 			draw(ldv::screen&, int fps)=0;
 	virtual void 			awake(input&)=0;
 	virtual void 			slumber(input&)=0;
 	virtual bool			can_leave_state() const=0;
