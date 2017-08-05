@@ -37,6 +37,7 @@ class state_driver_interface
 	virtual void				prepare_state(int next, int current)=0;
 	virtual void				common_input(dfw::input&, float delta)=0;
 	virtual void				common_step(float delta)=0;
+	virtual float				get_max_timestep() const=0;
 
 	void					init(dfw::kernel&);
 	void					register_controller(int, controller_interface&);
@@ -53,7 +54,6 @@ class state_driver_interface
 	bool					loop(dfw::kernel&);
 	controller_interface *			ci;
 	message_reader_interface *		mri;
-
 };
 
 

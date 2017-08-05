@@ -34,13 +34,11 @@ class kernel
 	ldv::resource_manager&	get_video_resource_manager() {return v_manager;}
 	lda::resource_manager&	get_audio_resource_manager() {return a_manager;}
 	tools::arg_manager& 	get_arg_manager() {return arg_manager_i;}
+	ldt::fps_counter&	get_fps_counter() {return fps_counter_i;}
 	
 
 	float 			get_delta_step() const {return delta_step;}
 	void 			set_delta_step(float v) {delta_step=v;}
-	void			end_loop_step() {fps_counter_i.end_loop_step();}
-	void			init_loop_step() {fps_counter_i.init_loop_step();}
-	bool			consume_loop(float delta) {return fps_counter_i.consume_loop(delta);}
 	void			do_audio_queue() {audio_i->do_queue();}
 
 	///////////////////
