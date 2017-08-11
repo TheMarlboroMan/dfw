@@ -68,3 +68,13 @@ void audio::resume_inactive()
 		++i;
 	}
 }
+
+void audio::play_sound(lda::sound_struct ss)
+{
+	ac.play_sound(ss);
+}
+
+void audio::play_sound(const lda::sound& s)
+{
+	play_sound({s});
+}
