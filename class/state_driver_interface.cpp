@@ -72,8 +72,6 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 
 		ci->loop(input_i, delta_step);
 
-		kernel.do_audio_queue();
-
 		if(ci->is_break_loop()) 
 		{
 			break;

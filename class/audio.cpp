@@ -3,7 +3,7 @@
 using namespace dfw;
 
 audio::audio(lda::audio_controller& a)
-	:ac(a), queue(ac)
+	:ac(a)
 {
 
 }

@@ -39,7 +39,6 @@ class kernel
 
 	float 			get_delta_step() const {return delta_step;}
 	void 			set_delta_step(float v) {delta_step=v;}
-	void			do_audio_queue() {audio_i->do_queue();}
 
 	///////////////////
 	// Propiedades

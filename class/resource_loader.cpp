@@ -101,7 +101,7 @@ void resource_loader::process_surface(const std::vector<std::string>& values)
 	std::string ruta=values[1];
 	unsigned int transparencia=std::atoi(values[2].c_str());
 
-	SDL_Surface * surface=ldv::load_image(ruta, screen->get_window());
+	SDL_Surface * surface=ldv::load_image(ruta);
 	if(transparencia)
 	{
 		unsigned int r=std::atoi(values[3].c_str());

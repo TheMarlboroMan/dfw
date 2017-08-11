@@ -24,13 +24,9 @@ class audio
 	void 			resume_active();
 	void 			resume_inactive();
 
-	void 			queue_sound(lda::sound_struct es) {queue.insert(es);}
-	void 			do_queue() {queue.process();}
-
 	private:
 
 	lda::audio_controller&			ac;
-	lda::sound_queue			queue;
 	std::vector<unsigned int> 		paused_channels;
 
 
