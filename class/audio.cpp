@@ -74,7 +74,7 @@ void audio::play_sound(lda::sound_struct ss)
 	ac.play_sound(ss);
 }
 
-void audio::play_sound(const lda::sound& s)
+void audio::play_sound(lda::sound& s)
 {
-	play_sound({s});
+	play_sound(lda::sound_struct(s));
 }
