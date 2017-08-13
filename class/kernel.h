@@ -24,7 +24,6 @@ class kernel
 	public:
 
 				kernel(ldt::log&, tools::arg_manager&);
-	int			get_fps() const {return fps_counter_i.get_frame_count();}
 	void 			init(const kernel_config_interface&, const base_config&);
 
 	ldt::log&		get_log() {return log_i;}

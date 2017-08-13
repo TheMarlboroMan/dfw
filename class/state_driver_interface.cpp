@@ -1,4 +1,5 @@
 #include "state_driver_interface.h"
+#include <chrono>
 
 using namespace dfw;
 
@@ -22,6 +23,9 @@ void state_driver_interface::init(dfw::kernel& kernel)
 
 	ci=controllers[states.get_current()];
 	ci->awake(kernel.get_input());
+
+	//TODO: Good moment to really restart the fps thing...
+	kernel.get_fps_counter().reset();
 	while(loop(kernel));
 }
 
@@ -39,9 +43,7 @@ void state_driver_interface::register_controller(int index, controller_interface
 
 bool state_driver_interface::loop(dfw::kernel& kernel)
 {
-	//Aquí se mide el tiempo desde el último paso por este loop...
 	auto& fps_counter=kernel.get_fps_counter();
-	fps_counter.init_loop_step(get_max_timestep());
 
 	float delta_step=kernel.get_delta_step();
 	auto& input_i=kernel.get_input();
@@ -49,7 +51,7 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 	common_step(delta_step);
 	common_input(input_i, delta_step);
 
-	ci->preloop(input_i, delta_step, kernel.get_fps());
+	ci->preloop(input_i, delta_step, fps_counter.get_frame_count());
 
 	//Time elapsed since previous drawing is consumed here, hoping it will 
 	//average. The idea is that the same time is devoted to running the 
@@ -64,18 +66,12 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 	//framerates, corresponding with short logic bursts... That's why 
 	//get_max_timestep exists above.
 
-	//TODO: Really comment this part.
-
+	//Actually, delta_step is a fixed value...
 	while(fps_counter.consume_loop(delta_step))
 	{
 		input_i().loop();
-
 		ci->loop(input_i, delta_step);
-
-		if(ci->is_break_loop()) 
-		{
-			break;
-		}
+		if(ci->is_break_loop()) break;
 
 		if(states.is_change()) 
 		{
@@ -94,27 +90,24 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 		if(mri!=nullptr && message_q.size()) message_q.process(*mri);
 	}
 
-	fps_counter.end_loop_step();
-
 	if(states.is_change())
 	{
 		//Confirmación del cambio de states.
-		int current=states.get_current();
-		int next=states.get_next();
-
-		controllers[current]->slumber(input_i);
-		controllers[next]->awake(input_i);
-
-		ci=controllers[next];
-
+		controllers[states.get_current()]->slumber(input_i);
+		ci=controllers[states.get_next()];
+		ci->awake(input_i);
 		states.confirm();
 	}
 	else
 	{
-		ci->postloop(input_i, delta_step, kernel.get_fps());
-		ci->draw(kernel.get_screen(), kernel.get_fps());
+		fps_counter.init_loop_step(get_max_timestep());
+
+		ci->postloop(input_i, delta_step, fps_counter.get_frame_count());
+		ci->draw(kernel.get_screen(), fps_counter.get_frame_count());
 
 		kernel.get_screen().update();
+
+		fps_counter.end_loop_step();
 	}
 
 	return !ci->is_leave();
