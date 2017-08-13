@@ -26,7 +26,10 @@ void state_driver_interface::init(dfw::kernel& kernel)
 
 	//TODO: Good moment to really restart the fps thing...
 	kernel.get_fps_counter().reset();
+	kernel.get_controller_chrono().start();
 	while(loop(kernel));
+	kernel.get_controller_chrono().stop();
+	kernel.get_log()<<"controller logic ran for "<<kernel.get_controller_chrono().get_seconds()<<" seconds"<<std::endl;
 }
 
 void state_driver_interface::register_controller(int index, controller_interface& controller)

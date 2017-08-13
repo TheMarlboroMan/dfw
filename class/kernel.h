@@ -10,7 +10,7 @@
 #include "resource_loader.h"
 #include <class/arg_manager.h>
 #include <input/sdl_input/sdl_input.h>
-
+#include <class/chrono.h>
 /**
 * El kernel es propietario de los recursos y la interface de input_i. No es
 * propietario de la configuración, que puede variar para cada proyecto.
@@ -34,6 +34,7 @@ class kernel
 	lda::resource_manager&	get_audio_resource_manager() {return a_manager;}
 	tools::arg_manager& 	get_arg_manager() {return arg_manager_i;}
 	ldt::fps_counter&	get_fps_counter() {return fps_counter_i;}
+	tools::chrono&		get_controller_chrono() {return controller_chrono;}
 	
 
 	float 			get_delta_step() const {return delta_step;}
@@ -56,6 +57,7 @@ class kernel
 	lda::resource_manager				a_manager;
 	ldt::fps_counter	 			fps_counter_i;
 	ldv::screen 					screen_i;
+	tools::chrono					controller_chrono; //Provides a running time of the controller loop.
 
 	input						input_i;
 	std::unique_ptr<audio>				audio_i;
