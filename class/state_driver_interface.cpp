@@ -56,18 +56,9 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 
 	ci->preloop(input_i, delta_step, fps_counter.get_frame_count());
 
-	//Time elapsed since previous drawing is consumed here, hoping it will 
-	//average. The idea is that the same time is devoted to running the 
-	//logic and to the rendering. Since rendering takes the most, it is used 
-	//to measure the number of logic cycles that will be run.
-	//In short bursts is can work bu it is clearly, wrong. If it takes me 2 
-	//seconds to draw a frame I will then do 2 seconds of logic, and that 
-	//will quickly escalate. It would make sense in a multithreaded 
-	//environment where I can consume on one thread the time I generate in 
-	//the renderer, but not here.
-	//On the other hand, it mostly works when the renderer can yield good
-	//framerates, corresponding with short logic bursts... That's why 
-	//get_max_timestep exists above.
+	//The elapsed time from the previous drawing is advanced in logic
+	//in discrete steps. If the value is larger than delta_step, 
+	//delta step will be used.
 
 	//Actually, delta_step is a fixed value...
 	while(fps_counter.consume_loop(delta_step))
@@ -103,6 +94,7 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 	}
 	else
 	{
+//TODO: Record and average controller logic and draw times.
 		fps_counter.init_loop_step(get_max_timestep());
 
 		ci->postloop(input_i, delta_step, fps_counter.get_frame_count());
