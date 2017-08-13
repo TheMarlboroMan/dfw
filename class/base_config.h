@@ -70,6 +70,7 @@ class base_config
 	virtual std::string 				generate_file_version() const=0;
 	virtual std::string 				get_key_file_version() const=0;
 	virtual std::string 				get_key_screen_double_buffer() const=0;
+	virtual std::string 				get_key_screen_vsync() const=0;
 	virtual std::string 				get_key_sound_volume() const=0;
 	virtual std::string 				get_key_music_volume() const=0;
 	virtual std::string 				get_key_audio_ratio() const=0;
