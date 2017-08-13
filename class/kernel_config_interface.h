@@ -21,7 +21,8 @@ struct window_info
 	int 		px_w, px_h;
 	int 		logical_w, logical_h;
 	std::string 	title;
-	bool 		show_cursor;
+	bool 		show_cursor,
+			vsync;
 };
 
 struct input_pair

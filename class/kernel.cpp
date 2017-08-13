@@ -42,6 +42,7 @@ void kernel::init_video_environment(const window_info& iv)
 	screen_i.set_logical_size(iv.logical_w, iv.logical_h);
 	screen_i.set_title(iv.title);
 	ldv::set_cursor_visible(iv.show_cursor);
+	ldv::set_vsync(iv.vsync);
 }
 
 /** All this work with pointers is expected: these objects need references to
