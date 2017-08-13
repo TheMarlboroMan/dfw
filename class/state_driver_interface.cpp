@@ -24,7 +24,6 @@ void state_driver_interface::init(dfw::kernel& kernel)
 	ci=controllers[states.get_current()];
 	ci->awake(kernel.get_input());
 
-	//TODO: Good moment to really restart the fps thing...
 	kernel.get_fps_counter().reset();
 	kernel.get_controller_chrono().start();
 	while(loop(kernel));
