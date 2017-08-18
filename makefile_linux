@@ -16,8 +16,8 @@ LIMPIAR=rm objects/*; rmdir objects;
 
 DIR_HOME=~/programacion/
 DIR_LIBDAN2=$(DIR_HOME)libdansdl2
-DIR_TOOLS=$(DIR_HOME)herramientas_proyecto/
-DIR_O_TOOLS=$(DIR_HOME)herramientas_proyecto/objects/
+DIR_TOOLS=$(DIR_HOME)tools/
+DIR_O_TOOLS=$(DIR_HOME)tools/objects/
 CREATE_DIR_OBJECTS=mkdir -p objects; touch objects/dummy
 
 INCLUDES=-I $(DIR_LIBDAN2) -I $(DIR_TOOLS)

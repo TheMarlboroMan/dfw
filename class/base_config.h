@@ -8,40 +8,20 @@
 * proyecto implementando todos los métodos virtuales puros que tiene.
 */
 
-#include <class/dnot_parser.h>
-#include <iostream>
+#include <class/dnot_config_file.h>
 
 namespace dfw
 {
 
-class base_config
+class base_config:
+	public tools::dnot_config_file
 {
 	////////////////////////////////
 	// Interface pública.
 
 	public:
 
-	//Multipurpose interface.
-	int int_from_path(const std::string& ppath) const {return token_from_path(ppath).get_int();}
-	bool bool_from_path(const std::string& ppath) const {return token_from_path(ppath).get_bool();}
-	std::string string_from_path(const std::string& ppath) const {return token_from_path(ppath).get_string();}
-
-	void save();
-
 	base_config(const std::string& ruta);
-
-	protected: 
-
-	//Conversor de lo que sea a string...
-	template <typename T>
-	void 						set(const std::string& k, T v)
-	{
-		auto& tok=token_from_path(k);
-		tok.set(v);
-	}
-
-	const tools::dnot_token&			token_from_path(const std::string& c) const;
-	tools::dnot_token&				token_from_path(const std::string& c);
 
 	///////////////////
 	//Kernel interface.
