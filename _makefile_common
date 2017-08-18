@@ -7,6 +7,21 @@ DIR_CLASS_FRAMEWORK=./class/
 ################################################################################
 #Clases framework
 
+all: \
+$(DIR_O)dummy \
+$(DIR_O)fw_kernel.o\
+$(DIR_O)fw_state_driver_interface.o \
+$(DIR_O)fw_input.o \
+$(DIR_O)fw_state_controller.o \
+$(DIR_O)fw_messages.o \
+$(DIR_O)fw_audio.o \
+$(DIR_O)fw_resource_loader.o \
+$(DIR_O)fw_base_config.o
+	@echo "All done"
+
+$(DIR_O)dummy:
+	$(DO_DIR_OBJECTS)
+
 $(DIR_O)fw_kernel.o :\
 $(DIR_O)fw_input.o \
 $(DIR_O)fw_state_driver_interface.o \
@@ -57,3 +72,6 @@ $(DIR_O)fw_base_config.o :\
 $(DIR_CLASS_FRAMEWORK)base_config.h \
 $(DIR_CLASS_FRAMEWORK)base_config.cpp
 	$(CC) $(CFLAGS) $(INCLUDES) $(DIR_CLASS_FRAMEWORK)base_config.cpp -o $(DIR_O)fw_base_config.o 
+
+clean:
+	$(DO_CLEAN)

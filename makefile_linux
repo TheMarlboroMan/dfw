@@ -12,7 +12,8 @@ WARNING_FLAGS=-Wall -Wextra -Wundef -Wcast-align -Wwrite-strings -Wlogical-op -W
 CFLAGS=-c $(DEBUG) $(OPTIMIZATION) $(FLAGS_BASE) $(WARNING_FLAGS) $(OTHER_WARNING_FLAGS)
 CFLAGS_TARGET_FINAL=$(DEBUG) $(OPTIMIZATION) $(FLAGS_BASE)
 CC=g++
-LIMPIAR=rm objects/*; rmdir objects;
+DO_CLEAN=rm objects/*;
+DO_DIR_OBJECTS=mkdir -p objects; touch objects/dummy
 
 DIR_HOME=~/programacion/
 DIR_LIBDAN2=$(DIR_HOME)libdansdl2
