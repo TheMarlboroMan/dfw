@@ -36,8 +36,10 @@ class state_driver_interface
 	//original y despertar el nuevo.
 
 	virtual void				prepare_state(int next, int current)=0;
-	virtual void				common_input(dfw::input&, float delta)=0;
-	virtual void				common_step(float delta)=0;
+	virtual void				common_pre_loop_input(dfw::input&, float delta)=0;
+	virtual void				common_pre_loop_step(float delta)=0;
+	virtual void				common_loop_input(dfw::input&, float delta)=0;
+	virtual void				common_loop_step(float delta)=0;
 	virtual float				get_max_timestep() const=0;
 
 	void					init(dfw::kernel&);

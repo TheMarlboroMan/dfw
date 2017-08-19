@@ -50,8 +50,8 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 	float delta_step=kernel.get_delta_step();
 	auto& input_i=kernel.get_input();
 
-	common_step(delta_step);
-	common_input(input_i, delta_step);
+	common_pre_loop_input(input_i, delta_step);
+	common_pre_loop_step(delta_step);
 
 	ci->preloop(input_i, delta_step, fps_counter.get_frame_count());
 
@@ -63,6 +63,10 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 	while(fps_counter.consume_loop(delta_step))
 	{
 		input_i().loop();
+
+		common_loop_input(input_i, delta_step);
+		common_loop_step(delta_step);
+
 		ci->loop(input_i, delta_step);
 		if(ci->is_break_loop()) break;
 
