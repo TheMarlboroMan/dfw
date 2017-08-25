@@ -41,7 +41,7 @@ void state_driver_interface::register_controller(int index, controller_interface
 	controllers[index]=&controller;
 	controller.inject_message_queue(message_q);
 	controller.inject_state_controller(states);
-	cvm.register_controller(&controller);
+	cvm.register_controller(index, &controller);
 }
 
 bool state_driver_interface::loop(dfw::kernel& kernel)
@@ -103,8 +103,8 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 
 		auto& screen=kernel.get_screen();
 		cvm.clear();
-		ci->request_draw(cmv);
-		for(const auto& c : cmv.draw) c->draw(screen, fps_counter.get_frame_count());
+		ci->request_draw(cvm);
+		cvm.draw(screen, fps_counter.get_frame_count());
 		screen.update();
 		fps_counter.end_loop_step();
 	}

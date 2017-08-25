@@ -5,7 +5,7 @@
 #include "state_controller.h"
 #include "controller_view_manager.h"
 #include "input.h"
-#include <video/screen/screen.h>
+#include "controller_interface_drawable.h"
 
 /**
 * Interface para un controlador. Los controladores deben ser registrados en
@@ -16,7 +16,10 @@
 namespace dfw
 {
 
-class controller_interface
+class controller_interface:
+	//Every single one is drawable. The interface is just there to allow 
+	//the controller_view_manager to keep focused on its job.
+	public controller_interface_drawable
 {
 	public:
 
@@ -44,7 +47,7 @@ class controller_interface
 
 	void				set_state(int v) {states->set(v);}
 
-	virtual void			request_draw(controller_view_manager& cvm) const {cvm.add(this);}
+	virtual void			request_draw(controller_view_manager& cvm) {cvm.add_ptr(this);}
 
 	virtual void 			preloop(input&, float delta, int fps)=0;
 	virtual void 			loop(input&, float delta)=0;
