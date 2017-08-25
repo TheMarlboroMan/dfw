@@ -4,7 +4,7 @@
 using namespace dfw;
 
 state_driver_interface::state_driver_interface(int e, std::function<bool(int)> f)
-	:states(e, f), ci(nullptr), mri(nullptr)
+	:states(e, f), ci(nullptr)
 {
 
 }
@@ -39,7 +39,10 @@ void state_driver_interface::register_controller(int index, controller_interface
 	}
 	
 	controllers[index]=&controller;
-	controller.inject_message_queue(message_q);
+
+	//This is very interesting actually: we have two directions, injections and inverse.
+	if(controller.is_broadcaster())	controller.inject_message_dispatcher(md);
+	if(controller.is_receiver())	md.register_receiver(controller);
 	controller.inject_state_controller(states);
 	cvm.register_controller(index, &controller);
 }
@@ -70,7 +73,6 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 		common_loop_step(delta_step);
 
 		ci->loop(input_i, delta_step);
-		if(mri!=nullptr && message_q.size()) message_q.process(*mri);
 		if(ci->is_break_loop()) break;
 
 		if(states.is_change()) 
@@ -110,10 +112,4 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 	}
 
 	return !ci->is_leave();
-}
-
-void state_driver_interface::register_message_reader(message_reader_interface& i)
-{
-	mri=&i;
-	message_q.set_reader(i);
 }

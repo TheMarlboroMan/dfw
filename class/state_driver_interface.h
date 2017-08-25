@@ -7,11 +7,11 @@
 #include <functional>
 #include <map>
 
-#include "messages.h"
 #include "state_controller.h"
 #include "controller_interface.h"
 #include "controller_view_manager.h"
 #include "kernel.h"
+#include "message_broadcasting.h"
 
 /**
 * Interface para el director de estados que es, en pocas palabras, la aplicación
@@ -45,20 +45,19 @@ class state_driver_interface
 
 	void					init(dfw::kernel&);
 	void					register_controller(int, controller_interface&);
-	void					register_message_reader(message_reader_interface& i);
 
 	protected:
 	
 	std::map<int, controller_interface *>	controllers;
 	state_controller			states;
-	message_queue				message_q;
+	message_dispatcher			md;
+	
 
 	private:
 
 	bool					loop(dfw::kernel&);
 	controller_view_manager			cvm;
 	controller_interface *			ci;
-	message_reader_interface *		mri;
 };
 
 

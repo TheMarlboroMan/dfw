@@ -1,11 +1,11 @@
 #ifndef DFRAMEWORK_CONTROLLER_INTERFACE_H
 #define DFRAMEWORK_CONTROLLER_INTERFACE_H
 
-#include "messages.h"
 #include "state_controller.h"
 #include "controller_view_manager.h"
 #include "input.h"
 #include "controller_interface_drawable.h"
+#include "message_broadcasting.h"
 
 /**
 * Interface para un controlador. Los controladores deben ser registrados en
@@ -19,16 +19,21 @@ namespace dfw
 class controller_interface:
 	//Every single one is drawable. The interface is just there to allow 
 	//the controller_view_manager to keep focused on its job.
-	public controller_interface_drawable
+	public controller_interface_drawable,
+	public message_broadcaster,
+	public message_receiver
+
 {
 	public:
 
 	controller_interface()
-		:message_queue_instance(nullptr), states(nullptr), leave(false), break_loop(false) 
+		:states(nullptr), leave(false), break_loop(false) 
 	{}
 
-	virtual ~controller_interface() 
-	{}
+	virtual ~controller_interface() {}
+
+	// controller_interface_drawable
+	virtual void			request_draw(controller_view_manager& cvm) {cvm.add_ptr(this);}
 
 	void 				set_debug(const std::string& c) {debug=c;}
 	const std::string& 		get_debug() const {return debug;}
@@ -41,13 +46,7 @@ class controller_interface:
 
 	void				inject_state_controller(state_controller& c) {states=&c;}
 
-	void				inject_message_queue(message_queue& c) {message_queue_instance=&c;}
-	void				queue_message(dfw::uptr_message& ev) {message_queue_instance->insert(ev);}
-	void				consume_message(dfw::uptr_message& ev) {message_queue_instance->consume(ev);}
-
 	void				set_state(int v) {states->set(v);}
-
-	virtual void			request_draw(controller_view_manager& cvm) {cvm.add_ptr(this);}
 
 	virtual void 			preloop(input&, float delta, int fps)=0;
 	virtual void 			loop(input&, float delta)=0;
@@ -59,7 +58,6 @@ class controller_interface:
 
 	private:
 
-	message_queue *			message_queue_instance;
 	state_controller *		states;
 	std::string 			debug;
 	bool 				leave,
