@@ -25,9 +25,9 @@ class message_receiver
 	public:
 
 	//Perhaps provide default functionality.
-	virtual void			receive(const broadcast_message& msg)
+	virtual void			receive(const broadcast_message&)
 	{
-		std::cout<<"default receiver got type "<<msg.type<<std::endl;
+		throw std::runtime_error("invoked default message_receiver::receive");
 	}
 
 	//Indicates whether the controller can be a receiver.
