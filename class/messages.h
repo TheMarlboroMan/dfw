@@ -7,6 +7,8 @@
 namespace dfw
 {
 
+//TODO: Reimplement this crap a a double dispatch system.
+
 /**
 * Un sistema de mensajería (no necesariamente eventos, pero es un buen nombre)
 * para que los diferentes controladores puedan comunicarse con una central,

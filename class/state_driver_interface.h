@@ -10,6 +10,7 @@
 #include "messages.h"
 #include "state_controller.h"
 #include "controller_interface.h"
+#include "controller_view_manager.h"
 #include "kernel.h"
 
 /**
@@ -55,6 +56,7 @@ class state_driver_interface
 	private:
 
 	bool					loop(dfw::kernel&);
+	controller_view_manager			cvm;
 	controller_interface *			ci;
 	message_reader_interface *		mri;
 };

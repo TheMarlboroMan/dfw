@@ -3,6 +3,7 @@
 
 #include "messages.h"
 #include "state_controller.h"
+#include "controller_view_manager.h"
 #include "input.h"
 #include <video/screen/screen.h>
 
@@ -35,13 +36,15 @@ class controller_interface
 	void 				set_leave(bool v) {leave=v;}
 	void 				set_break_loop(bool v) {break_loop=v;}
 
-	void				inject_message_queue(message_queue& c) {message_queue_instance=&c;}
 	void				inject_state_controller(state_controller& c) {states=&c;}
 
+	void				inject_message_queue(message_queue& c) {message_queue_instance=&c;}
 	void				queue_message(dfw::uptr_message& ev) {message_queue_instance->insert(ev);}
 	void				consume_message(dfw::uptr_message& ev) {message_queue_instance->consume(ev);}
 
 	void				set_state(int v) {states->set(v);}
+
+	virtual void			request_draw(controller_view_manager& cvm) const {cvm.add(this);}
 
 	virtual void 			preloop(input&, float delta, int fps)=0;
 	virtual void 			loop(input&, float delta)=0;

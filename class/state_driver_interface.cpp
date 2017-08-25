@@ -41,10 +41,12 @@ void state_driver_interface::register_controller(int index, controller_interface
 	controllers[index]=&controller;
 	controller.inject_message_queue(message_q);
 	controller.inject_state_controller(states);
+	cvm.register_controller(&controller);
 }
 
 bool state_driver_interface::loop(dfw::kernel& kernel)
 {
+	cvm.reserve();
 	auto& fps_counter=kernel.get_fps_counter();
 
 	float delta_step=kernel.get_delta_step();
@@ -68,6 +70,7 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 		common_loop_step(delta_step);
 
 		ci->loop(input_i, delta_step);
+		if(mri!=nullptr && message_q.size()) message_q.process(*mri);
 		if(ci->is_break_loop()) break;
 
 		if(states.is_change()) 
@@ -79,13 +82,12 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 			else
 			{
 				prepare_state(states.get_next(), states.get_current());
-				if(mri!=nullptr && message_q.size()) message_q.process(*mri);
 				break;
 			}
 		}
-	
-		if(mri!=nullptr && message_q.size()) message_q.process(*mri);
 	}
+
+	ci->postloop(input_i, delta_step, fps_counter.get_frame_count());
 
 	if(states.is_change())
 	{
@@ -97,14 +99,13 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 	}
 	else
 	{
-//TODO: Record and average controller logic and draw times.
 		fps_counter.init_loop_step(get_max_timestep());
 
-		ci->postloop(input_i, delta_step, fps_counter.get_frame_count());
-		ci->draw(kernel.get_screen(), fps_counter.get_frame_count());
-
-		kernel.get_screen().update();
-
+		auto& screen=kernel.get_screen();
+		cvm.clear();
+		ci->request_draw(cmv);
+		for(const auto& c : cmv.draw) c->draw(screen, fps_counter.get_frame_count());
+		screen.update();
 		fps_counter.end_loop_step();
 	}
 
