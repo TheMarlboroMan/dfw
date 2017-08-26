@@ -32,9 +32,6 @@ class controller_interface:
 
 	virtual ~controller_interface() {}
 
-	// controller_interface_drawable
-	virtual void			request_draw(controller_view_manager& cvm) {cvm.add_ptr(this);}
-
 	void 				set_debug(const std::string& c) {debug=c;}
 	const std::string& 		get_debug() const {return debug;}
 
@@ -45,6 +42,8 @@ class controller_interface:
 	void 				set_break_loop(bool v) {break_loop=v;}
 
 	void				inject_state_controller(state_controller& c) {states=&c;}
+
+	virtual void			request_draw(controller_view_manager& cvm) {cvm.add_ptr(this);}
 
 	void				set_state(int v) {states->set(v);}
 
