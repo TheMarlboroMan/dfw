@@ -78,3 +78,8 @@ void audio::play_sound(lda::sound& s)
 {
 	play_sound(lda::sound_struct(s));
 }
+
+void audio::play_music(lda::music& s)
+{
+	ac.play_music(s);
+}

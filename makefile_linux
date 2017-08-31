@@ -6,7 +6,7 @@
 #These are either old or plain stupid :P.
 #OTHER_WARNING_FLAGS=-Wno-deprecated -Wfloat-equal
 
-FLAGS_BASE=-Wno-deprecated -Wall -ansi -pedantic -std=c++11
+FLAGS_BASE=-Wno-deprecated -Wall -ansi -pedantic -std=c++11 -fno-rtti
 WARNING_FLAGS=-Wall -Wextra -Wundef -Wcast-align -Wwrite-strings -Wlogical-op -Wmissing-declarations -Wredundant-decls -Wshadow -Woverloaded-virtual
 
 CFLAGS=-c $(DEBUG) $(OPTIMIZATION) $(FLAGS_BASE) $(WARNING_FLAGS) $(OTHER_WARNING_FLAGS)
