@@ -25,8 +25,8 @@ class audio
 	void 			resume_inactive();
 
 	void			play_sound(lda::sound&);
-	void			play_sound(lda::sound_struct);
-	void			play_music(lda::music&, int=-1, int pv=128);
+	void			play_sound(lda::sound_struct&);
+	void			play_music(lda::music_struct&);
 
 	private:
 
