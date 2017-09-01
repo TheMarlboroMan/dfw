@@ -56,11 +56,12 @@ void kernel::init_audio_environment(const base_config& config)
 					config.get_audio_buffers(),
 					config.get_audio_channels(),
 					config.get_audio_volume(),
+					config.get_music_volume(),
 					AUDIO_S16SYS};
 
 	audiocontroller.reset(new lda::audio_controller(cfg));
 	audiocontroller->set_main_sound_volume(config.get_audio_volume());
-	audiocontroller->set_music_volume(config.get_music_volume());
+	audiocontroller->set_main_music_volume(config.get_music_volume());
 
 	audio_i.reset(new audio(*audiocontroller));
 }

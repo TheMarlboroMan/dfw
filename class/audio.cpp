@@ -19,7 +19,7 @@ void audio::pause_active()
 		if(c.is_playing())
 		{
 			c.pause();
-			paused_channels.push_back(i);				
+			paused_channels.push_back(i);
 		}
 		++i;
 	}
@@ -79,7 +79,7 @@ void audio::play_sound(lda::sound& s)
 	play_sound(lda::sound_struct(s));
 }
 
-void audio::play_music(lda::music& s)
+void audio::play_music(lda::music& s, int pr, int pv)
 {
-	ac.play_music(s);
+	ac.play_music(s, pr, pv);
 }
