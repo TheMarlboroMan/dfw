@@ -69,7 +69,7 @@ void audio::resume_inactive()
 	}
 }
 
-void audio::play_sound(lda::sound_struct& ss)
+void audio::play_sound(const lda::sound_struct& ss)
 {
 	ac.play_sound(ss);
 }
@@ -79,7 +79,7 @@ void audio::play_sound(lda::sound& s)
 	play_sound(lda::sound_struct(s));
 }
 
-void audio::play_music(lda::music_struct& m)
+void audio::play_music(const lda::music_struct& m)
 {
 	ac.play_music(m);
 }
