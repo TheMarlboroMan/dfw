@@ -67,6 +67,11 @@ bool state_driver_interface::loop(dfw::kernel& kernel)
 	//Actually, delta_step is a fixed value...
 	while(fps_counter.consume_loop(delta_step))
 	{
+		//TODO: How about "loop_callback"? Perhaps I want to do something with it?
+		//we need another function like ci->input_loop(input_i()) that
+		//defaults to loop or something so we can do ci->get_input_callback() ? input_i().loop_callback(*ci->get_input_callback()) : input_i().loop();
+		//I somehow prefer the first one: more stupid, but finer controls.
+		
 		input_i().loop();
 
 		common_loop_input(input_i, delta_step);

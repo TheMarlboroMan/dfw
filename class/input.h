@@ -1,9 +1,17 @@
 #ifndef DFRAMEWORK_INPUT_H
 #define DFRAMEWORK_INPUT_H
 
+//std
 #include <map>
 #include <vector>
+
+//libdansdl2
 #include <input/sdl_input/sdl_input.h>
+
+//tools
+#include <class/dnot_token.h>
+
+//local
 #include "kernel_config_interface.h"
 
 /*Abstrae los sistemas de input usando la clase Controles_SDL. Cada input del
@@ -21,11 +29,10 @@ class input
 
 	public:
 
-	//Public structure to expose a configured input (for example button 3 of the 2nd joystick.
+	//Public structure to expose a configured input (for example button 3 of the 2nd joystick).
 	struct input_description
 	{
-		enum class types {none, keyboard, mouse, joystick};
-		types		type;
+		enum class types {keyboard, mouse, joystick, none} type;
 		int		code, device;
 	};
 
@@ -73,5 +80,7 @@ class input
 	lookup_result 			get_lookup(int) const;
 };
 
+input::input_description input_description_from_config_token(const tools::dnot_token&);
+input::input_description::types	input_description_int_to_type(int);
 }
 #endif
