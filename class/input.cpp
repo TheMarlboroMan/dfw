@@ -241,7 +241,7 @@ input::input_description dfw::input_description_from_config_token(const tools::d
 	const auto& v=tok.get_vector();
 
 	if(v.size() != 3) throw std::runtime_error("dfw::input_description_from_config_token, vector has not size of 3");
-	return dfw::input::input_description{input_description_int_to_type(v[0]), v[1], v[2]};
+	return dfw::input::input_description{input_description_int_to_type(v[0]), v[2], v[1]};
 }
 
 input::input_description::types	dfw::input_description_int_to_type(int v)
