@@ -39,11 +39,6 @@ void state_driver_interface::register_controller(int index, controller_interface
 	}
 	
 	controllers[index]=&controller;
-
-	//This is very interesting actually: we have two directions, injections and inverse.
-	if(controller.is_broadcaster())	controller.inject_message_dispatcher(md);
-	if(controller.is_receiver())	md.register_receiver(controller);
-	controller.inject_state_controller(states);
 	cvm.register_controller(index, &controller);
 }
 

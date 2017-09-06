@@ -5,7 +5,6 @@
 #include "controller_view_manager.h"
 #include "input.h"
 #include "controller_interface_drawable.h"
-#include "message_broadcasting.h"
 
 /**
 * Interface para un controlador. Los controladores deben ser registrados en
@@ -19,9 +18,7 @@ namespace dfw
 class controller_interface:
 	//Every single one is drawable. The interface is just there to allow 
 	//the controller_view_manager to keep focused on its job.
-	public controller_interface_drawable,
-	public message_broadcaster,
-	public message_receiver
+	public controller_interface_drawable
 
 {
 	public:

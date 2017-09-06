@@ -11,7 +11,7 @@
 #include "controller_interface.h"
 #include "controller_view_manager.h"
 #include "kernel.h"
-#include "message_broadcasting.h"
+#include "signal_broadcasting.h"
 
 /**
 * Interface para el director de estados que es, en pocas palabras, la aplicación
@@ -42,6 +42,7 @@ class state_driver_interface
 	virtual void				common_loop_input(dfw::input&, float delta)=0;
 	virtual void				common_loop_step(float delta)=0;
 	virtual float				get_max_timestep() const=0;
+	signal_dispatcher&			get_signal_dispatcher() {return sd;}
 
 	void					init(dfw::kernel&);
 	void					register_controller(int, controller_interface&);
@@ -49,15 +50,14 @@ class state_driver_interface
 	protected:
 	
 	std::map<int, controller_interface *>	controllers;
-	state_controller			states;
-	message_dispatcher			md;
-	
+	state_controller			states;	
 
 	private:
 
 	bool					loop(dfw::kernel&);
 	controller_view_manager			cvm;
 	controller_interface *			ci;
+	signal_dispatcher			sd;
 };
 
 
