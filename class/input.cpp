@@ -140,15 +140,15 @@ void input::configure(const std::vector<input_pair>& v)
 
 void input::configure(input_pair i)
 {
-	tinput ti={i.sdl_key, i.device_index};
-	auto par=std::make_pair(i.key, ti);
+	tinput ti={i.data.code, i.data.device};
+	auto par=std::make_pair(i.app_key, ti);
 
-	switch(i.type)
+	switch(i.data.type)
 	{
-		case input_pair::types::none:		break;
-		case input_pair::types::keyboard: 	keyboard_map.insert(par); break;
-		case input_pair::types::mouse:		mouse_map.insert(par); break;
-		case input_pair::types::joystick:	joystick_map.insert(par); break;
+		case input_description::types::none:		break;
+		case input_description::types::keyboard: 	keyboard_map.insert(par); break;
+		case input_description::types::mouse:		mouse_map.insert(par); break;
+		case input_description::types::joystick:	joystick_map.insert(par); break;
 	}
 }
 
@@ -164,31 +164,8 @@ void input::clear(int key)
 	if(lookup.count(key)) lookup.erase(key);
 }
 
-input::input_description input::get_current_description() const
-{
-	if(sdlinput.is_event_keyboard_down())
-	{
-		return input_description{input_description::types::keyboard, sdlinput.get_key_down_index(), 0};
-	}
-	else if(sdlinput.is_event_mouse_button_down())
-	{
-		return input_description{input_description::types::mouse, sdlinput.get_mouse_button_down_index(), 0};
-	}
-	else if(sdlinput.is_event_joystick_button_down())
-	{
-		int cantidad=sdlinput.get_joysticks_size(), i=0;
-		while(i < cantidad)
-		{
-			int btn=sdlinput.get_joystick_button_down_index(i);
-			if(btn >= 0) return input_description{input_description::types::joystick, btn, i};
-			++i;
-		}
-	}
-
-	return input_description{input_description::types::none, 0, 0};
-}
-
-input::input_description input::locate_description(int i) const
+//Gets the full input description for the given application key.
+input_description input::locate_description(int i) const
 {
 	input_description res{input_description::types::none, 0, 0};
 
@@ -196,7 +173,7 @@ input::input_description input::locate_description(int i) const
 
 	switch(l.type)
 	{
-		case lookup_result::types::none:	
+		case lookup_result::types::none:
 		break;
 		
 		case lookup_result::types::keyboard:
@@ -220,38 +197,7 @@ input::input_description input::locate_description(int i) const
 	return res;
 }
 
-input_pair input::from_description(const input::input_description& e, int key)
+input_pair input::from_description(const input_description& e, int key)
 {
-	input_pair::types t=input_pair::types::none;
-
-	switch(e.type)
-	{
-		case input_description::types::none: break;
-		case input_description::types::keyboard: t=input_pair::types::keyboard; break;
-		case input_description::types::mouse: t=input_pair::types::mouse; break;
-		case input_description::types::joystick: t=input_pair::types::joystick; break;
-	}
-
-	return input_pair{t, key, e.code, e.device};
-}
-
-input::input_description dfw::input_description_from_config_token(const tools::dnot_token& tok)
-{
-	if(!tok.is_vector()) throw std::runtime_error("dfw::input_description_from_config_token, token is not vector");
-	const auto& v=tok.get_vector();
-
-	if(v.size() != 3) throw std::runtime_error("dfw::input_description_from_config_token, vector has not size of 3");
-	return dfw::input::input_description{input_description_int_to_type(v[0]), v[2], v[1]};
-}
-
-input::input_description::types	dfw::input_description_int_to_type(int v)
-{
-	switch(v)
-	{
-		case 0: return dfw::input::input_description::types::keyboard; break;
-		case 1: return dfw::input::input_description::types::mouse; break;
-		case 2: return dfw::input::input_description::types::joystick; break;
-	}
-
-	return dfw::input::input_description::types::none;
+	return input_pair{e, key};
 }

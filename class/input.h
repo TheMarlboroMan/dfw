@@ -12,7 +12,7 @@
 #include <class/dnot_token.h>
 
 //local
-#include "kernel_config_interface.h"
+#include "input_definitions.h"
 
 /*Abstrae los sistemas de input usando la clase Controles_SDL. Cada input del
 enum de turno se puede asignar a uno o más values SDLK_xxx, según lo mismo
@@ -29,13 +29,6 @@ class input
 
 	public:
 
-	//Public structure to expose a configured input (for example button 3 of the 2nd joystick).
-	struct input_description
-	{
-		enum class types {keyboard, mouse, joystick, none} type;
-		int		code, device;
-	};
-
 					input(ldi::sdl_input&);
 	void 				configure(const std::vector<input_pair>&);
 	void 				configure(input_pair);
@@ -48,8 +41,6 @@ class input
 	bool 				is_input_up(int) const;
 	bool 				is_input_pressed(int) const;
 
-	//Obtiene la descripción del evento en cola.
-	input_description		get_current_description() const;
 	input_description		locate_description(int) const;
 	input_pair			from_description(const input_description&, int);
 
@@ -80,7 +71,5 @@ class input
 	lookup_result 			get_lookup(int) const;
 };
 
-input::input_description input_description_from_config_token(const tools::dnot_token&);
-input::input_description::types	input_description_int_to_type(int);
 }
 #endif

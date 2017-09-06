@@ -5,13 +5,7 @@
 #include <string>
 #include <stdexcept>
 
-/**
-* Esta es la interface que tendríamos que personalizar por cada aplicación 
-* para arrancar el Kernel. La idea es dar un paso adelante y que sean menos
-* archivos los que haya que manejar de un lado para otro.
-* Controla los aspectos configurables del Kernel. No controla la configuración,
-* que es una clase que puede tener tipos propios y que se usará aparte.
-*/
+#include "input_definitions.h"
 
 namespace dfw
 {
@@ -24,14 +18,6 @@ struct window_info
 	bool 		show_cursor,
 			vsync;
 };
-
-struct input_pair
-{
-	enum class 	types {none, keyboard, mouse, joystick};
-	types 		type;
-	int 		key, sdl_key, device_index;
-};
-
 
 class kernel_config_interface
 {
