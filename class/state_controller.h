@@ -21,8 +21,8 @@ class state_controller
 
 	typedef	std::function<bool(int)>	tf_validation;
 	
-	state_controller(int e, tf_validation f)
-		:f_validate(f), current(e), next(e)
+	state_controller(int e)
+		:current(e), next(e)
 	{}
 
 

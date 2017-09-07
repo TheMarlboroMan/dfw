@@ -3,8 +3,8 @@
 
 using namespace dfw;
 
-state_driver_interface::state_driver_interface(int e, std::function<bool(int)> f)
-	:states(e, f), ci(nullptr)
+state_driver_interface::state_driver_interface(int e)
+	:states(e), ci(nullptr)
 {
 
 }

@@ -26,7 +26,7 @@ class state_driver_interface
 {
 	public:
 
-						state_driver_interface(int e, std::function<bool(int)> f);
+						state_driver_interface(int e);
 
 	virtual					~state_driver_interface() 
 	{}
