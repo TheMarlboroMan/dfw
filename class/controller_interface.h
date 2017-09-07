@@ -29,9 +29,6 @@ class controller_interface:
 
 	virtual ~controller_interface() {}
 
-	void 				set_debug(const std::string& c) {debug=c;}
-	const std::string& 		get_debug() const {return debug;}
-
 	bool 				is_leave() const {return leave;}
 	bool 				is_break_loop() const {return break_loop;}
 
@@ -42,7 +39,11 @@ class controller_interface:
 
 	virtual void			request_draw(controller_view_manager& cvm) {cvm.add_ptr(this);}
 
-	void				set_state(int v) {states->set(v);}
+	void				set_state(int v) 
+	{
+		if(states==nullptr) throw std::runtime_error("state_controller was not injected");
+		states->set(v);
+	}
 
 	virtual void 			preloop(input&, float delta, int fps)=0;
 	virtual void 			loop(input&, float delta)=0;
@@ -55,7 +56,6 @@ class controller_interface:
 	private:
 
 	state_controller *		states;
-	std::string 			debug;
 	bool 				leave,
 					break_loop;
 };

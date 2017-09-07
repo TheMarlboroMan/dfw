@@ -39,6 +39,7 @@ void state_driver_interface::register_controller(int index, controller_interface
 	}
 	
 	controllers[index]=&controller;
+	controller.inject_state_controller(states);
 	cvm.register_controller(index, &controller);
 }
 

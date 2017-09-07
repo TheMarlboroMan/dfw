@@ -19,17 +19,21 @@ class state_controller
 {
 	public:
 
-	state_controller(int e, std::function<bool(int)> f)
+	typedef	std::function<bool(int)>	tf_validation;
+	
+	state_controller(int e, tf_validation f)
 		:f_validate(f), current(e), next(e)
 	{}
 
 
 	void					set(int v)
 	{
+		if(!f_validate) throw std::runtime_error("state_controller validation function not set");
 		if(!f_validate(v)) throw std::runtime_error("invalid state for state_controller");
 		next=v;
 	}
 	
+	void					set_function(tf_validation f){f_validate=f;}
 	bool					is_change() const {return current!=next;}
 	void					confirm() {current=next;}
 	void					cancel() {next=current;}
@@ -38,7 +42,7 @@ class state_controller
 
 	private:
 
-	std::function<bool(int)>		f_validate;
+	tf_validation				f_validate;
 	int 					current, 
 						next;
 };
