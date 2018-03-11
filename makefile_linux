@@ -15,7 +15,7 @@ CC=g++
 DO_CLEAN=rm objects/*;
 DO_DIR_OBJECTS=mkdir -p objects; touch objects/dummy
 
-DIR_HOME=~/programacion/
+DIR_HOME=~/devel/
 DIR_LIBDAN2=$(DIR_HOME)libdansdl2
 DIR_TOOLS=$(DIR_HOME)tools/
 DIR_O_TOOLS=$(DIR_HOME)tools/objects/

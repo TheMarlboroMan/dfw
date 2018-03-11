@@ -54,7 +54,7 @@ class state_driver_interface
 
 	private:
 
-	bool					loop(dfw::kernel&);
+	void					loop(dfw::kernel&);
 	controller_view_manager			cvm;
 	controller_interface *			ci;
 	signal_dispatcher			sd;

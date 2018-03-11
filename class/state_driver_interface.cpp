@@ -26,8 +26,9 @@ void state_driver_interface::init(dfw::kernel& kernel)
 
 	kernel.get_fps_counter().reset();
 	kernel.get_controller_chrono().start();
-	while(loop(kernel));
+	loop(kernel);
 	kernel.get_controller_chrono().stop();
+
 	kernel.get_log()<<"controller logic ran for "<<kernel.get_controller_chrono().get_seconds()<<" seconds"<<std::endl;
 }
 
@@ -43,74 +44,77 @@ void state_driver_interface::register_controller(int index, controller_interface
 	cvm.register_controller(index, &controller);
 }
 
-bool state_driver_interface::loop(dfw::kernel& kernel)
+void state_driver_interface::loop(dfw::kernel& kernel)
 {
 	cvm.reserve();
 	auto& fps_counter=kernel.get_fps_counter();
 
+	//Delta time is measured in floats, as it is a small and precise value for
+	//each step. To accumulate large values, it is better to use a tools::chrono.
 	float delta_step=kernel.get_delta_step();
 	auto& input_i=kernel.get_input();
 
-	common_pre_loop_input(input_i, delta_step);
-	common_pre_loop_step(delta_step);
+	do {
+		 
+		common_pre_loop_input(input_i, delta_step);
+		common_pre_loop_step(delta_step);
 
-	ci->preloop(input_i, delta_step, fps_counter.get_frame_count());
+		//The elapsed time from the previous drawing is advanced in logic
+		//in discrete steps. If the value is larger than delta_step, 
+		//delta step will be used. delta_step is a fixed value but the 
+		//fps_counter keeps the timed to be consumed. We will not enter 
+		//the loop if there's not enough time to consume.
 
-	//The elapsed time from the previous drawing is advanced in logic
-	//in discrete steps. If the value is larger than delta_step, 
-	//delta step will be used.
+		int step=0;
 
-	//Actually, delta_step is a fixed value...
-	while(fps_counter.consume_loop(delta_step))
-	{
-		//TODO: How about "loop_callback"? Perhaps I want to do something with it?
-		//we need another function like ci->input_loop(input_i()) that
-		//defaults to loop or something so we can do ci->get_input_callback() ? input_i().loop_callback(*ci->get_input_callback()) : input_i().loop();
-		//I somehow prefer the first one: more stupid, but finer controls.
-		
-		input_i().loop();
-
-		common_loop_input(input_i, delta_step);
-		common_loop_step(delta_step);
-
-		ci->loop(input_i, delta_step);
-		if(ci->is_break_loop()) break;
-
-		if(states.is_change()) 
+		while(fps_counter.consume_loop(delta_step))
 		{
-			if(!ci->can_leave_state())
+			//TODO: How about "loop_callback"? Perhaps I want to do something with it?
+			//we need another function like ci->input_loop(input_i()) that
+			//defaults to loop or something so we can do ci->get_input_callback() ? input_i().loop_callback(*ci->get_input_callback()) : input_i().loop();
+			//I somehow prefer the first one: more stupid, but finer controls.
+		
+			input_i().loop();
+
+			common_loop_input(input_i, delta_step);
+			common_loop_step(delta_step);
+
+			ci->loop(input_i, delta_step, step++);
+			if(ci->is_break_loop()) break;
+
+			if(states.is_change()) 
 			{
-				states.cancel();
-			}
-			else
-			{
-				prepare_state(states.get_next(), states.get_current());
-				break;
+				if(!ci->can_leave_state())
+				{
+					states.cancel();
+				}
+				else
+				{
+					prepare_state(states.get_next(), states.get_current());
+					break;
+				}
 			}
 		}
-	}
 
-	ci->postloop(input_i, delta_step, fps_counter.get_frame_count());
+		if(states.is_change())
+		{
+			//Confirmación del cambio de states.
+			controllers[states.get_current()]->slumber(input_i);
+			ci=controllers[states.get_next()];
+			ci->awake(input_i);
+			states.confirm();
+		}
+		else
+		{
+			fps_counter.init_loop_step(get_max_timestep());
 
-	if(states.is_change())
-	{
-		//Confirmación del cambio de states.
-		controllers[states.get_current()]->slumber(input_i);
-		ci=controllers[states.get_next()];
-		ci->awake(input_i);
-		states.confirm();
-	}
-	else
-	{
-		fps_counter.init_loop_step(get_max_timestep());
-
-		auto& screen=kernel.get_screen();
-		cvm.clear();
-		ci->request_draw(cvm);
-		cvm.draw(screen, fps_counter.get_frame_count());
-		screen.update();
-		fps_counter.end_loop_step();
-	}
-
-	return !ci->is_leave();
+			//If drawing takes less than delta step... it's ok. We won't run any logic, tough we may draw again.
+			auto& screen=kernel.get_screen();
+			cvm.clear();
+			ci->request_draw(cvm);
+			cvm.draw(screen, fps_counter.get_frame_count());
+			screen.update();
+			fps_counter.end_loop_step();
+		}
+	}while(!ci->is_leave());
 }
