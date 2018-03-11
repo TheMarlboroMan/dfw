@@ -11,6 +11,7 @@
 #include <class/arg_manager.h>
 #include <input/sdl_input/sdl_input.h>
 #include <class/chrono.h>
+#include <class/fps_counter.h>
 /**
 * El kernel es propietario de los recursos y la interface de input_i. No es
 * propietario de la configuración, que puede variar para cada proyecto.
