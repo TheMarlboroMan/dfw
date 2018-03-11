@@ -33,7 +33,7 @@ class kernel
 	ldv::resource_manager&	get_video_resource_manager() {return v_manager;}
 	lda::resource_manager&	get_audio_resource_manager() {return a_manager;}
 	tools::arg_manager& 	get_arg_manager() {return arg_manager_i;}
-	ldt::fps_counter&	get_fps_counter() {return fps_counter_i;}
+	tools::fps_counter&	get_fps_counter() {return fps_counter_i;}
 	tools::chrono&		get_controller_chrono() {return controller_chrono;}
 	
 
@@ -55,7 +55,7 @@ class kernel
 	ldi::sdl_input	 				sdlinput;
 	ldv::resource_manager				v_manager;
 	lda::resource_manager				a_manager;
-	ldt::fps_counter	 			fps_counter_i;
+	tools::fps_counter	 			fps_counter_i;
 	ldv::screen 					screen_i;
 	tools::chrono					controller_chrono; //Provides a running time of the controller loop.
 
