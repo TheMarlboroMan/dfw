@@ -1,6 +1,9 @@
 #include "state_driver_interface.h"
 #include <chrono>
 
+//TODO: Remove...
+#include <iomanip>
+
 using namespace dfw;
 
 state_driver_interface::state_driver_interface(int e)
@@ -51,11 +54,11 @@ void state_driver_interface::loop(dfw::kernel& kernel)
 
 	//Delta time is measured in floats, as it is a small and precise value for
 	//each step. To accumulate large values, it is better to use a tools::chrono.
-	float delta_step=kernel.get_delta_step();
+	tools::fps_counter::tdelta delta_step=kernel.get_delta_step();
 	auto& input_i=kernel.get_input();
+	loop_iteration_data lid(delta_step);
 
 	do {
-		 
 		common_pre_loop_input(input_i, delta_step);
 		common_pre_loop_step(delta_step);
 
@@ -63,58 +66,79 @@ void state_driver_interface::loop(dfw::kernel& kernel)
 		//in discrete steps. If the value is larger than delta_step, 
 		//delta step will be used. delta_step is a fixed value but the 
 		//fps_counter keeps the timed to be consumed. We will not enter 
-		//the loop if there's not enough time to consume.
+		//the loop if there's not enough time to consume...
 
-		int step=0;
+		lid.step=0;
 
-		while(fps_counter.consume_loop(delta_step))
-		{
-			//TODO: How about "loop_callback"? Perhaps I want to do something with it?
-			//we need another function like ci->input_loop(input_i()) that
+		std::cout<<"Pre logic: "<<std::fixed<<std::setw(11)<<std::setprecision(6)<<std::setfill('0')<<(double)fps_counter.get_timestep()<<std::endl;
+
+		fps_counter.init_loop_step(get_max_timestep());
+		lid.timestep=fps_counter.get_timestep();
+		lid.remaning=lid.timestep;
+
+		std::cout<<"Pre logic timestep cut: "<<std::fixed<<std::setw(11)<<std::setprecision(6)<<std::setfill('0')<<(double)lid.timestep<<std::endl;
+
+		while(fps_counter.consume_loop(delta_step)) {
+			lid.remaning=fps_counter.get_timestep();
+			std::cout<<"Running logic: "<<std::fixed<<std::setw(11)<<std::setprecision(6)<<std::setfill('0')<<(double)lid.remaning<<std::endl;
+
+			//TODO: How about "loop_callback"? Perhaps I want to do something with it? we need another function like ci->input_loop(input_i()) that
 			//defaults to loop or something so we can do ci->get_input_callback() ? input_i().loop_callback(*ci->get_input_callback()) : input_i().loop();
-			//I somehow prefer the first one: more stupid, but finer controls.
 		
 			input_i().loop();
 
 			common_loop_input(input_i, delta_step);
 			common_loop_step(delta_step);
 
-			ci->loop(input_i, delta_step, step++);
+			ci->loop(input_i, lid);
+			++lid.step;
+
 			if(ci->is_break_loop()) break;
 
-			if(states.is_change()) 
-			{
-				if(!ci->can_leave_state())
-				{
+			if(states.is_change()) {
+				if(!ci->can_leave_state()) {
 					states.cancel();
 				}
-				else
-				{
+				else {
 					prepare_state(states.get_next(), states.get_current());
 					break;
 				}
 			}
 		}
 
-		if(states.is_change())
-		{
+		if(states.is_change()) {
 			//Confirmación del cambio de states.
 			controllers[states.get_current()]->slumber(input_i);
 			ci=controllers[states.get_next()];
 			ci->awake(input_i);
 			states.confirm();
 		}
-		else
-		{
-			fps_counter.init_loop_step(get_max_timestep());
+		//This would be the drawing phase... Now, we must make sure it
+		//takes at least "delta_step" time or else we may draw several
+		//times in a row, never entering 
+		else {
+			std::cout<<"Drawing"<<std::endl;
 
-			//If drawing takes less than delta step... it's ok. We won't run any logic, tough we may draw again.
+			//TODO... Hmm... does this... really go here???????
+			//It should go right before starting to consume it...
+//			fps_counter.init_loop_step(get_max_timestep());
+
 			auto& screen=kernel.get_screen();
 			cvm.clear();
 			ci->request_draw(cvm);
+
+			//TODO: PASS MORE SHIT, LIKE HOW MUCH IT TOOK TO DRAW THE PREVIOUS????
 			cvm.draw(screen, fps_counter.get_frame_count());
 			screen.update();
 			fps_counter.end_loop_step();
+
+			std::cout<<"DRAWING DONE "<<std::fixed<<std::setw(11)<<std::setprecision(6)<<std::setfill('0')<<fps_counter.get_timestep()<<std::endl;
+
+			//It might happen that drawing is SO fast that takes less than our fixed step... In that case, let us just consume time until the step is fulfilled.
+			if(fps_counter.get_timestep() < delta_step) {
+				fps_counter.fill_until(delta_step);
+				std::cout<<"WAITED UNTIL "<<std::fixed<<std::setw(11)<<std::setprecision(6)<<std::setfill('0')<<fps_counter.get_timestep()<<std::endl;
+			}
 		}
 	}while(!ci->is_leave());
 }

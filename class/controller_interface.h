@@ -5,6 +5,7 @@
 #include "controller_view_manager.h"
 #include "input.h"
 #include "controller_interface_drawable.h"
+#include "loop_iteration_data.h"
 
 /**
 * Interface para un controlador. Los controladores deben ser registrados en
@@ -27,6 +28,10 @@ class controller_interface:
 		:states(nullptr), leave(false), break_loop(false) 
 	{}
 
+	struct loop_iteration_data {
+		
+	};
+
 	virtual ~controller_interface() {}
 
 	bool 				is_leave() const {return leave;}
@@ -45,7 +50,7 @@ class controller_interface:
 		states->set(v);
 	}
 
-	virtual void 			loop(input&, float delta, int step)=0;
+	virtual void 			loop(input&, const dfw::loop_iteration_data&)=0;
 	virtual void 			draw(ldv::screen&, int fps)=0;
 	virtual void 			awake(input&)=0;
 	virtual void 			slumber(input&)=0;

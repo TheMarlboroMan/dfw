@@ -38,8 +38,8 @@ class kernel
 	tools::chrono&		get_controller_chrono() {return controller_chrono;}
 	
 
-	float 			get_delta_step() const {return delta_step;}
-	void 			set_delta_step(float v) {delta_step=v;}
+	tools::fps_counter::tdelta	get_delta_step() const {return delta_step;}
+	void 				set_delta_step(tools::fps_counter::tdelta v) {delta_step=v;}
 
 	///////////////////
 	// Propiedades
@@ -47,9 +47,9 @@ class kernel
 	private:
 
 	void 			init_video_environment(const window_info&);
-	void 			init_audio_environment(const base_config& config);	
+	void 			init_audio_environment(const base_config& config);
 
-	float delta_step;
+	tools::fps_counter::tdelta			delta_step;
 	
 	ldt::log&					log_i;
 	std::unique_ptr<lda::audio_controller>		audiocontroller;
