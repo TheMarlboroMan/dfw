@@ -49,7 +49,7 @@ class kernel
 	void 			init_video_environment(const window_info&);
 	void 			init_audio_environment(const base_config& config);
 
-	tools::fps_counter::tdelta			delta_step;
+	tools::fps_counter::tdelta			delta_step;	//!< The amount of time to be consumed per call to a controller loop.
 	
 	ldt::log&					log_i;
 	std::unique_ptr<lda::audio_controller>		audiocontroller;
@@ -58,7 +58,7 @@ class kernel
 	lda::resource_manager				a_manager;
 	tools::fps_counter	 			fps_counter_i;
 	ldv::screen 					screen_i;
-	tools::chrono					controller_chrono; //Provides a running time of the controller loop.
+	tools::chrono					controller_chrono; //!< Provides a running time of the controller loop.
 
 	input						input_i;
 	std::unique_ptr<audio>				audio_i;
