@@ -12,6 +12,7 @@
 #include <input/sdl_input/sdl_input.h>
 #include <class/chrono.h>
 #include <class/fps_counter.h>
+#include <log.h>
 /**
 * El kernel es propietario de los recursos y la interface de input_i. No es
 * propietario de la configuración, que puede variar para cada proyecto.
@@ -24,10 +25,10 @@ class kernel
 {
 	public:
 
-				kernel(ldt::log&, tools::arg_manager&);
+				kernel(tools::log&, tools::arg_manager&);
 	void 			init(const kernel_config_interface&, const base_config&);
 
-	ldt::log&		get_log() {return log_i;}
+	tools::log&		get_log() {return log_i;}
 	input&			get_input() {return input_i;}
 	audio&			get_audio() {return *audio_i;}
 	ldv::screen&	 	get_screen() {return screen_i;}
@@ -51,7 +52,7 @@ class kernel
 
 	tools::fps_counter::tdelta			delta_step;	//!< The amount of time to be consumed per call to a controller loop.
 	
-	ldt::log&					log_i;
+	tools::log&					log_i;
 	std::unique_ptr<lda::audio_controller>		audiocontroller;
 	ldi::sdl_input	 				sdlinput;
 	ldv::resource_manager				v_manager;

@@ -15,12 +15,13 @@ CC=g++
 DO_CLEAN=rm objects/*;
 DO_DIR_OBJECTS=mkdir -p objects; touch objects/dummy
 
-DIR_HOME=~/devel/c++/
+DIR_HOME=~/devel/
 DIR_LIBDAN2=$(DIR_HOME)libdansdl2
+DIR_LOG=$(DIR_HOME)log
 DIR_TOOLS=$(DIR_HOME)tools/
 DIR_O_TOOLS=$(DIR_HOME)tools/objects/
 CREATE_DIR_OBJECTS=mkdir -p objects; touch objects/dummy
 
-INCLUDES=-I $(DIR_LIBDAN2) -I $(DIR_TOOLS)
+INCLUDES=-I $(DIR_LIBDAN2) -I $(DIR_TOOLS) -I $(DIR_LOG)/src/
 
 include _makefile_common
