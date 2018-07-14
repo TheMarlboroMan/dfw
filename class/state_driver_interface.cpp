@@ -19,6 +19,10 @@ void state_driver_interface::init(dfw::kernel& kernel)
 		throw std::runtime_error("initial controller is unregistered.");
 	}
 
+	if(!states.is_function_specified()) {
+		throw new std::runtime_error("state_driver_interface::init failed the state_controller does not have a state validation function.");
+	}
+
 	ci=controllers[states.get_current()];
 	ci->awake(kernel.get_input());
 

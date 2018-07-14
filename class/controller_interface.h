@@ -44,8 +44,7 @@ class controller_interface:
 
 	virtual void			request_draw(controller_view_manager& cvm) {cvm.add_ptr(this);}
 
-	void				set_state(int v) 
-	{
+	void				set_state(int v)  {
 		if(states==nullptr) throw std::runtime_error("state_controller was not injected");
 		states->set(v);
 	}
