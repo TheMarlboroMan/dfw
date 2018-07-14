@@ -3,17 +3,20 @@
 
 using namespace dfw;
 
-kernel::kernel(tools::log& rlog, tools::arg_manager& carg)
+kernel::kernel(tools::log& rlog, tools::arg_manager& carg, const kernel_config_interface& _kci, const base_config& _bc)
 	:delta_step(0.01f), log_i(rlog), audiocontroller(nullptr),
 	fps_counter_i(), screen_i(), input_i(sdlinput),
 	audio_i(nullptr),
-	arg_manager_i(carg)
-{
-	log_i<<"Kernel is constructed"<<std::endl;
+	arg_manager_i(carg) {
+
+	log_i<<"Kernel is constructed. Will now init"<<std::endl;
+	init(_kci, _bc);
+	log_i<<"Kernel is init."<<std::endl;
 }
 
-void kernel::init(const kernel_config_interface& kdi, const base_config& config)
-{
+
+void kernel::init(const kernel_config_interface& kdi, const base_config& config) {
+
 	log_i<<"Kernel inits video environment..."<<std::endl;
 	init_video_environment(kdi.get_window_info());
 
@@ -24,7 +27,7 @@ void kernel::init(const kernel_config_interface& kdi, const base_config& config)
 	log_i<<"Kernel inits resources..."<<std::endl;
 	resource_loader r_loader(v_manager, a_manager);
 	r_loader.generate_textures(kdi.get_texture_entries());
-	r_loader.generate_surfaces(kdi.get_surface_entries(), screen_i);
+	r_loader.generate_surfaces(kdi.get_surface_entries());
 	r_loader.generate_sounds(kdi.get_sound_entries());
 	r_loader.generate_music(kdi.get_music_entries());
 	
