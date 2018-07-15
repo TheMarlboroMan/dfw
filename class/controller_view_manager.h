@@ -13,7 +13,6 @@ namespace dfw
 
 //!Considering that we point at controller_interface_drawable (which only give
 //!access to "draw"), it is okay that the pointers are not const.
-
 class controller_view_manager {
 
 	public:

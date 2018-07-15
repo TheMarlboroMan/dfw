@@ -19,8 +19,6 @@ namespace dfw
 //!the state driver (which has direct access to public methods) and
 //!signal broadcasters. Every single one is drawable. The interface is just
 //!there to allow the controller_view_manager to focus on its job.
-
-
 class controller_interface:
 	public controller_interface_drawable
 

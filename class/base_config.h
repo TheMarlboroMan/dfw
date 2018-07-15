@@ -20,16 +20,10 @@ namespace dfw
 class base_config:
 	public tools::dnot_config_file
 {
-	////////////////////////////////
-
+	public:
 	//!Class constructor. Receives the path to the config file. Will throw
 	//!if the file does not exist.
 							base_config(const std::string& ruta);
-
-	///////////////////
-	//Kernel interface.
-
-	public:
 
 	//!Returns the file version number. Can be used if an application has a
 	//!long lifespan and new configuration values are added over time, so
@@ -37,10 +31,10 @@ class base_config:
 	int 					get_file_version() const		{return token_from_path(get_key_file_version());}
 
 	//!Returns the double buffering configuration value.
-	int 					get_screen_double_buffer() const 	{return token_from_path(get_key_screen_double_buffer());}
+	bool 					get_screen_double_buffer() const 	{return token_from_path(get_key_screen_double_buffer());}
 
 	//!Returns the vsync configuration value.
-	int 					get_screen_vsync() const 	{return token_from_path(get_key_screen_vsync());}
+	bool 					get_screen_vsync() const 	{return token_from_path(get_key_screen_vsync());}
 
 	//!Returns the audio volume configuration value.
 	int 					get_audio_volume() const		{return token_from_path(get_key_sound_volume());}
@@ -61,10 +55,10 @@ class base_config:
 	int 					get_audio_channels() const		{return token_from_path(get_key_audio_channels());}
 
 	//!Sets the double buffering value.
-	void 					set_screen_double_buffer(int v)	{set(get_key_screen_double_buffer(), v);}
+	void 					set_screen_double_buffer(bool v)	{set(get_key_screen_double_buffer(), v);}
 
 	//!Sets the double vsync value.
-	void 					set_screen_vsync(int v)	{set(get_key_screen_vsync(), v);}
+	void 					set_screen_vsync(bool v)	{set(get_key_screen_vsync(), v);}
 
 	//!Sets the audio volume value.
 	void 					set_audio_volume(int v)		{set(get_key_sound_volume(), v);}
