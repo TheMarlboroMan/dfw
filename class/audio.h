@@ -1,39 +1,62 @@
 #ifndef PROYECTO_SDL2_BASE_CONTROLADOR_AUDIO_H
 #define PROYECTO_SDL2_BASE_CONTROLADOR_AUDIO_H
 
-/*Clase proxy con el controlador de audio. Añadimos alguna utilidad para el 
-tema de pausar y despausar sonidos.*/
-
 #include <libDan2.h>
 
 namespace dfw
 {
 
+//!This class acts as a proxy for the libdansdl2 audio component. It also
+//!provides some utilities to handle paused sounds.
+
 class audio
 {
 	public:
 
-				audio(lda::audio_controller&);
+	//!Class constructor. Must be injected with the libdansdl2 audio controller.
+								audio(lda::audio_controller&);
 
-	lda::audio_controller& 	operator()() {return ac;}
+	//!Returns the internal libdansdl2 audio controller instance.
+	lda::audio_controller& 		operator()() {
+		return ac;
+	}
 
-	void 			pause() {ac.pause_sound();}
+	//!Proxy call to libdansdl2 audio controllers' pause_sound.
+	void 			pause() {
+		ac.pause_sound();
+	}
+
+	//!Pauses active channels, saving them to an internal index. This index
+	//!can be used later to restore the playing of these channels. There can
+	//!be only one index active, so the application must supply any additional
+	//!logic.
 	void 			pause_active();
 
+	//!Resumes the playing of all paused sounds and clears the index of channels
+	//!that would be restored.
 	void 			resume();
+
+	//!Resumes the playing of paused sounds, as stored by a call to
+	//!"pause_active". The index of paused channels is emptied.
 	void 			resume_active();
+
+	//!Resumes the playing of all sounds except those stored in the index by
+	//!a call to pause_active. The index remains intact.
 	void 			resume_inactive();
 
+	//!Proxy call to libdansdl2 audio controller's play_sound.
 	void			play_sound(lda::sound&);
+
+	//!Proxy call to libdansdl2 audio controller's play_sound.
 	void			play_sound(const lda::sound_struct&);
+
+	//!Proxy call to libdansdl2 audio controller's play_music.
 	void			play_music(const lda::music_struct&);
 
 	private:
 
-	lda::audio_controller&			ac;
-	std::vector<unsigned int> 		paused_channels;
-
-
+	lda::audio_controller&			ac;					//!< Reference to the audio controller.
+	std::vector<unsigned int> 		paused_channels;	//!< Internal index of paused channels.
 };
 
 }

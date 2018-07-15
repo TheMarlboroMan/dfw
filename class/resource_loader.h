@@ -11,7 +11,7 @@ namespace dfw
 
 //!A resource loader class. Separate from the resource managers.
 
-/** 
+/**
 This class loads graphical and aural resources from index files. All resources
 in the index files will be loaded, so that might be a problem for very large
 projects.
@@ -20,19 +20,24 @@ Index files have a specific structure: text-only, with N values separated by
 tabs. Each entry must be identified with an unique integer id, that can be
 mapped in the application via enums.
 
-The formats are:
+For all files, a line beginning with # will be a comment. The formats are:
 
 For graphics (textures and surfaces):
 
-#index	path	trans	rtrans	gtrans	btrans
+index	path	trans	rtrans	gtrans	btrans
+
+As in
+
 1	data/img/pic.png	1	0	0	0
 
-Where "trans" indicates transparency and r,g,b indicate the colorkey for 
+Where "trans" indicates transparency and r,g,b indicate the colorkey for
 transparency.
 
-For audio 
+For audio
 
-#index	#path
+index	path
+
+As in
 1	data/audio/default.ogg
 
 When using resource managers it is a good idea to always get references to
