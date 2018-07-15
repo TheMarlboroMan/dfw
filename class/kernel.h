@@ -78,7 +78,11 @@ class kernel {
 	//!input interfaces. Called from the constructor.
 	void 			init(const kernel_config_interface&, const base_config&);
 
+	//!Starts the screen with the given window info values. Also sets 
+	//!cursor and vsync information.
 	void 			init_video_environment(const window_info&);
+
+
 	void 			init_audio_environment(const base_config& config);
 
 	tools::fps_counter::tdelta			delta_step;	//!< The amount of time to be consumed per call to a controller loop. By default set at 0.01f.

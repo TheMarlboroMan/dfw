@@ -38,9 +38,7 @@ void kernel::init(const kernel_config_interface& kdi, const base_config& config)
 	log_i<<"Kernel is ready..."<<std::endl;
 }
 
-//Inicialización con valores hardcodeados.
-void kernel::init_video_environment(const window_info& iv)
-{
+void kernel::init_video_environment(const window_info& iv) {
 	screen_i.init(iv.px_w, iv.px_h);
 	screen_i.set_logical_size(iv.logical_w, iv.logical_h);
 	screen_i.set_title(iv.title);
