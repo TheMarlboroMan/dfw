@@ -28,7 +28,6 @@ $(DIR_O)fw_state_controller.o \
 $(DIR_O)fw_audio.o \
 $(DIR_O)fw_resource_loader.o \
 $(DIR_O)fw_base_config.o \
-$(DIR_CLASS_FRAMEWORK)kernel_config_interface.h \
 $(DIR_CLASS_FRAMEWORK)kernel.h \
 $(DIR_CLASS_FRAMEWORK)kernel.cpp
 	$(CC) $(CFLAGS) $(INCLUDES) $(DIR_CLASS_FRAMEWORK)kernel.cpp -o $(DIR_O)fw_kernel.o 
@@ -40,7 +39,6 @@ $(DIR_CLASS_FRAMEWORK)state_driver_interface.cpp
 	$(CC) $(CFLAGS) $(INCLUDES) $(DIR_CLASS_FRAMEWORK)state_driver_interface.cpp -o $(DIR_O)fw_state_driver_interface.o 
 
 $(DIR_O)fw_input.o :\
-$(DIR_CLASS_FRAMEWORK)kernel_config_interface.h \
 $(DIR_CLASS_FRAMEWORK)input.h \
 $(DIR_CLASS_FRAMEWORK)input.cpp
 	$(CC) $(CFLAGS) $(INCLUDES) $(DIR_CLASS_FRAMEWORK)input.cpp -o $(DIR_O)fw_input.o
@@ -56,7 +54,6 @@ $(DIR_CLASS_FRAMEWORK)audio.cpp
 	$(CC) $(CFLAGS) $(INCLUDES) $(DIR_CLASS_FRAMEWORK)audio.cpp -o $(DIR_O)fw_audio.o 
 
 $(DIR_O)fw_resource_loader.o :\
-$(DIR_CLASS_FRAMEWORK)kernel_config_interface.h \
 $(DIR_CLASS_FRAMEWORK)resource_loader.h \
 $(DIR_CLASS_FRAMEWORK)resource_loader.cpp
 	$(CC) $(CFLAGS) $(INCLUDES) $(DIR_CLASS_FRAMEWORK)resource_loader.cpp -o $(DIR_O)fw_resource_loader.o

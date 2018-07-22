@@ -3,11 +3,12 @@
 
 #include <string>
 #include <memory>
-#include "kernel_config_interface.h"
 #include "base_config.h"
 #include "input.h"
 #include "audio.h"
 #include "resource_loader.h"
+#include "window_info.h"
+#include "audio_info.h"
 #include <class/arg_manager.h>
 #include <input/sdl_input/sdl_input.h>
 #include <class/chrono.h>
@@ -29,7 +30,7 @@ class kernel {
 	public:
 
 	//!Constructs the kernel. All parameters are mandatory.
-				kernel(tools::log&, tools::arg_manager&, const kernel_config_interface&, const base_config&);
+				kernel(tools::log&, tools::arg_manager&);
 
 	//!Returns the kernel log. Applications may want to use a different log.
 	tools::log&		get_log() {return log_i;}
@@ -69,21 +70,18 @@ class kernel {
 		delta_step=v;
 	}
 
+	//!Starts the screen with the given window info values. Also sets 
+	//!cursor and vsync information. Must be called from the state driver.s
+	void 			init_video_system(const window_info&);
+
+	void 			init_audio_system(const audio_info&);
+
+	void			init_input_system(const std::vector<dfw::input_pair>&);
+
 	///////////////////
 	// Propiedades
 
 	private:
-
-	//!Starts video and audio environments, loads resources and starts
-	//!input interfaces. Called from the constructor.
-	void 			init(const kernel_config_interface&, const base_config&);
-
-	//!Starts the screen with the given window info values. Also sets 
-	//!cursor and vsync information.
-	void 			init_video_environment(const window_info&);
-
-
-	void 			init_audio_environment(const base_config& config);
 
 	tools::fps_counter::tdelta			delta_step;	//!< The amount of time to be consumed per call to a controller loop. By default set at 0.01f.
 	

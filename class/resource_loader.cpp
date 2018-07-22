@@ -1,5 +1,4 @@
 #include "resource_loader.h"
-#include "kernel_config_interface.h"
 #include <source/string_utils.h>
 
 using namespace dfw;
