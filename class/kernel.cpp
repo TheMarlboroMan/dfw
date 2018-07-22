@@ -14,11 +14,13 @@ kernel::kernel(tools::log& rlog, tools::arg_manager& carg)
 
 
 void kernel::init_video_system(const window_info& iv) {
+
 	screen_i.init(iv.px_w, iv.px_h);
 	screen_i.set_logical_size(iv.logical_w, iv.logical_h);
 	screen_i.set_title(iv.title);
 	ldv::set_cursor_visible(iv.show_cursor);
 	ldv::set_vsync(iv.vsync);
+	//TODO: What about the fullscreen thing????
 }
 
 /** All this work with pointers is expected: these objects need references to
