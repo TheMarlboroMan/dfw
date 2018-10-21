@@ -3,18 +3,21 @@
 
 #include <string>
 #include <memory>
+
+#include <src/log.h>
+
+#include <input/sdl_input/sdl_input.h>
+
+#include <class/chrono.h>
+#include <class/arg_manager.h>
+#include <class/fps_counter.h>
+
 #include "base_config.h"
 #include "input.h"
 #include "audio.h"
 #include "resource_loader.h"
 #include "window_info.h"
 #include "audio_info.h"
-#include <class/arg_manager.h>
-#include <input/sdl_input/sdl_input.h>
-#include <class/chrono.h>
-#include <class/fps_counter.h>
-#include <log.h>
-
 
 namespace dfw
 {

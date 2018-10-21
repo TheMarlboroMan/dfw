@@ -1,27 +1,26 @@
-#Definiciones.
-
-#OPTIMIZATION=-O3
-#DEBUG=-g
-
-#These are either old or plain stupid :P.
-#OTHER_WARNING_FLAGS=-Wno-deprecated -Wfloat-equal
-
-FLAGS_BASE=-Wno-deprecated -Wall -ansi -pedantic -std=c++11 -fno-rtti
-WARNING_FLAGS=-Wall -Wextra -Wundef -Wcast-align -Wwrite-strings -Wlogical-op -Wmissing-declarations -Wredundant-decls -Wshadow -Woverloaded-virtual
-
-CFLAGS=-c $(DEBUG) $(OPTIMIZATION) $(FLAGS_BASE) $(WARNING_FLAGS) $(OTHER_WARNING_FLAGS)
-CFLAGS_TARGET_FINAL=$(DEBUG) $(OPTIMIZATION) $(FLAGS_BASE)
-CC=g++
-DO_CLEAN=rm objects/*;
-DO_DIR_OBJECTS=mkdir -p objects; touch objects/dummy
-
+#Machine specifics.
 DIR_HOME=~/devel/
 DIR_LIBDAN2=$(DIR_HOME)libdansdl2
 DIR_LOG=$(DIR_HOME)log
 DIR_TOOLS=$(DIR_HOME)tools/
-DIR_O_TOOLS=$(DIR_HOME)tools/objects/
-CREATE_DIR_OBJECTS=mkdir -p objects; touch objects/dummy
+DIR_OBJ=objects
+MINGW32_INCLUDE=
+DIR_SDL2=
+SYSTEM_FLAGS=
 
-INCLUDES=-I $(DIR_LIBDAN2) -I $(DIR_TOOLS) -I $(DIR_LOG)/src/
+#Commands.
+CLEAN=rm -rf $(DIR_OBJ);
+CREATE_DIR_OBJECTS=mkdir -p $(DIR_OBJ);
+
+#Build specifics.
+#OPTIMIZATION=-O3
+#DEBUG=-g
+
+#Fixed compiler definitions.
+CC=g++
+WARNING_FLAGS=-Wall -Wextra -Wundef -Wcast-align -Wwrite-strings -Wlogical-op -Wmissing-declarations -Wredundant-decls -Wshadow -Woverloaded-virtual
+FLAGS_BASE=-ansi -pedantic -std=c++11 -fno-rtti
+CFLAGS=-c $(DEBUG) $(OPTIMIZATION) $(FLAGS_BASE) $(WARNING_FLAGS) $(SYSTEM_FLAGS)
+INCLUDES=-I$(DIR_LIBDAN2) -I$(DIR_TOOLS) -I$(DIR_LOG)/src/
 
 include _makefile_common

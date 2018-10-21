@@ -1,26 +1,26 @@
-#Definiciones.
-
-OPTIMIZACION=-O3
-#SIMBOLOS_DEBUG=-g
-UNIDAD_DISCO=C
-MINGW32_INCLUDE=$(UNIDAD_DISCO):/mingw64/mingw32/include
-#MINGW32_LIB=$(UNIDAD_DISCO):/mingw64/mingw32/lib
-#SDL2_LIB=$(UNIDAD_DISCO):/SDLDev/lib
-DIR_SDL2=$(UNIDAD_DISCO):/devel/include/
-#DIR_SDL2_B=$(UNIDAD_DISCO):/SDLDev/include/SDL2
-DIR_HOME=$(UNIDAD_DISCO):/devel/repos/
+#Machine specifics.
+DIR_HOME=c:/devel/repos/
 DIR_LIBDAN2=$(DIR_HOME)libdansdl2/
+DIR_LOG=$(DIR_HOME)log
 DIR_TOOLS=$(DIR_HOME)tools/
-DIR_LOG=$(DIR_HOME)log/src/
+DIR_OBJ=objects
+MINGW32_INCLUDE=$(DIR_HOME)../deps/mingw-w64-8-1/mingw32/include/
+DIR_SDL2=$(DIR_HOME)../deps/sdl2-plus-libs/include/
+SYSTEM_FLAGS=-DWINCOMPIL=1
 
-CFLAGS= -DWINCOMPIL=1 -c -Wno-deprecated -Wall -ansi -pedantic -std=c++11 -fno-rtti
-CFLAGS_TARGET_FINAL=-DWINCOMPIL=1 -Wno-deprecated -Wall -ansi -pedantic -std=c++11
+#Commands.
+CLEAN=if exist $(DIR_OBJ) rmdir $(DIR_OBJ) /S /Q
+CREATE_OBJ_DIR=	if not exist "$(DIR_OBJ)" mkdir $(DIR_OBJ)
+
+#Build specifics.
+#OPTIMIZACION=-O3
+SIMBOLOS_DEBUG=-g
+
+#Fixed compiler definitions.
 CC=g++
-LIMPIAR=rmdir objects /s /q;
-CREATE_DIR_OBJECTS=if not exist objects mkdir objects & copy nul objects/dummy > nul
-
-#-I$(DIR_SDL2_B)
-
+WARNING_FLAGS=-Wno-deprecated -Wall 
+FLAGS_BASE=-ansi -pedantic -std=c++11 -fno-rtti
+CFLAGS=-c $(DEBUG) $(OPTIMIZATION) $(FLAGS_BASE) $(WARNING_FLAGS) $(SYSTEM_FLAGS)
 INCLUDES=-I$(DIR_SDL2) -I$(DIR_LIBDAN2) -I$(DIR_TOOLS) -I$(MINGW32_INCLUDE) -I$(DIR_LOG)
 
 include _makefile_common

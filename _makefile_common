@@ -1,14 +1,14 @@
 ################################################################################
 # Definiciones
 
-DIR_O=objects/
+DIR_O=./$(DIR_OBJ)/
 DIR_CLASS_FRAMEWORK=./class/
 
 ################################################################################
 #Clases framework
 
 all: \
-$(DIR_O)dummy \
+create_obj\
 $(DIR_O)fw_kernel.o\
 $(DIR_O)fw_state_driver_interface.o \
 $(DIR_O)fw_input.o \
@@ -18,8 +18,8 @@ $(DIR_O)fw_resource_loader.o \
 $(DIR_O)fw_base_config.o
 	@echo "All done"
 
-$(DIR_O)dummy:
-	$(DO_DIR_OBJECTS)
+create_obj:
+	$(CREATE_OBJ_DIR)	
 
 $(DIR_O)fw_kernel.o :\
 $(DIR_O)fw_input.o \
@@ -64,4 +64,4 @@ $(DIR_CLASS_FRAMEWORK)base_config.cpp
 	$(CC) $(CFLAGS) $(INCLUDES) $(DIR_CLASS_FRAMEWORK)base_config.cpp -o $(DIR_O)fw_base_config.o 
 
 clean:
-	$(DO_CLEAN)
+	$(CLEAN)
