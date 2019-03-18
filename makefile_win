@@ -13,14 +13,14 @@ CLEAN=if exist $(DIR_OBJ) rmdir $(DIR_OBJ) /S /Q
 CREATE_OBJ_DIR=	if not exist "$(DIR_OBJ)" mkdir $(DIR_OBJ)
 
 #Build specifics.
-#OPTIMIZACION=-O3
-SIMBOLOS_DEBUG=-g
+#OPTIMIZATION=-O3
+#DEBUG=-g
 
 #Fixed compiler definitions.
 CC=g++
 WARNING_FLAGS=-Wno-deprecated -Wall 
 FLAGS_BASE=-ansi -pedantic -std=c++11 -fno-rtti
 CFLAGS=-c $(DEBUG) $(OPTIMIZATION) $(FLAGS_BASE) $(WARNING_FLAGS) $(SYSTEM_FLAGS)
-INCLUDES=-I$(DIR_SDL2) -I$(DIR_LIBDAN2) -I$(DIR_TOOLS) -I$(MINGW32_INCLUDE) -I$(DIR_LOG)
+INCLUDES=-I $(DIR_SDL2) -I $(DIR_LIBDAN2) -I $(DIR_TOOLS) -I $(DIR_LOG) -I $(MINGW32_INCLUDE)
 
 include _makefile_common

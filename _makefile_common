@@ -19,7 +19,7 @@ $(DIR_O)fw_base_config.o
 	@echo "All done"
 
 create_obj:
-	$(CREATE_OBJ_DIR)	
+	$(CREATE_OBJ_DIR)
 
 $(DIR_O)fw_kernel.o :\
 $(DIR_O)fw_input.o \
