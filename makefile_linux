@@ -1,6 +1,7 @@
 #Machine specifics.
 DIR_HOME=~/devel/
 DIR_LIBDAN2=$(DIR_HOME)libdansdl2/
+DIR_LIBDAN2_TOOLS=$(DIR_HOME)libdansdl2-tools/
 DIR_LOG=$(DIR_HOME)log
 DIR_TOOLS=$(DIR_HOME)tools/
 DIR_OBJ=objects
@@ -21,6 +22,6 @@ CC=g++
 WARNING_FLAGS=-Wall -Wextra -Wundef -Wcast-align -Wwrite-strings -Wlogical-op -Wmissing-declarations -Wredundant-decls -Wshadow -Woverloaded-virtual
 FLAGS_BASE=-ansi -pedantic -std=c++11 -fno-rtti
 CFLAGS=-c $(DEBUG) $(OPTIMIZATION) $(FLAGS_BASE) $(WARNING_FLAGS) $(SYSTEM_FLAGS)
-INCLUDES=-I $(DIR_LIBDAN2) -I $(DIR_TOOLS) -I $(DIR_LOG)
+INCLUDES=-I $(DIR_LIBDAN2) -I $(DIR_LIBDAN2_TOOLS) -I $(DIR_TOOLS) -I $(DIR_LOG)
 
 include _makefile_common
