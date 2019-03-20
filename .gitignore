@@ -1,2 +1,4 @@
 objects/*
 libdfw.a
+makefile_linux
+make
