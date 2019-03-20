@@ -1,5 +1,5 @@
 #Machine specifics.
-DIR_HOME=~/devel/
+__TEMPLATE_DIR_HOME__
 DIR_LIBDAN2=$(DIR_HOME)libdansdl2/
 DIR_LIBDAN2_TOOLS=$(DIR_HOME)libdansdl2-tools/
 DIR_LOG=$(DIR_HOME)log
@@ -14,8 +14,8 @@ CLEAN=if [ -d $(DIR_OBJ) ]; then rm -rf $(DIR_OBJ); fi; if [ -f libdfw.a ]; then
 CREATE_OBJ_DIR=mkdir -p $(DIR_OBJ);
 
 #Build specifics.
-#OPTIMIZATION=-O3
-#DEBUG=-g
+__TEMPLATE_OPTIMIZATION__
+__TEMPLATE_DEBUG__
 
 #Fixed compiler definitions.
 CC=g++
@@ -24,4 +24,4 @@ FLAGS_BASE=-ansi -pedantic -std=c++11 -fno-rtti
 CFLAGS=-c $(DEBUG) $(OPTIMIZATION) $(FLAGS_BASE) $(WARNING_FLAGS) $(SYSTEM_FLAGS)
 INCLUDES=-I $(DIR_LIBDAN2) -I $(DIR_LIBDAN2_TOOLS) -I $(DIR_TOOLS) -I $(DIR_LOG)
 
-include _makefile_common
+include make/common
