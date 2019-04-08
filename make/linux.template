@@ -20,7 +20,7 @@ __TEMPLATE_DEBUG__
 #Fixed compiler definitions.
 CC=g++
 WARNING_FLAGS=-Wall -Wextra -Wundef -Wcast-align -Wwrite-strings -Wlogical-op -Wmissing-declarations -Wredundant-decls -Wshadow -Woverloaded-virtual
-FLAGS_BASE=-ansi -pedantic -std=c++11 -fno-rtti
+FLAGS_BASE=-ansi -pedantic -std=c++14 -fno-rtti
 CFLAGS=-c $(DEBUG) $(OPTIMIZATION) $(FLAGS_BASE) $(WARNING_FLAGS) $(SYSTEM_FLAGS)
 INCLUDES=-I $(DIR_LIBDAN2) -I $(DIR_LIBDAN2_TOOLS) -I $(DIR_TOOLS) -I $(DIR_LOG)
 
