@@ -16,11 +16,12 @@ CREATE_OBJ_DIR=mkdir -p $(DIR_OBJ);
 #Build specifics.
 __TEMPLATE_OPTIMIZATION__
 __TEMPLATE_DEBUG__
+__TEMPLATE_CPPREV__
 
 #Fixed compiler definitions.
 CC=g++
 WARNING_FLAGS=-Wall -Wextra -Wundef -Wcast-align -Wwrite-strings -Wlogical-op -Wmissing-declarations -Wredundant-decls -Wshadow -Woverloaded-virtual
-FLAGS_BASE=-ansi -pedantic -std=c++14 -fno-rtti
+FLAGS_BASE=-ansi -pedantic $(CPPREV) -fno-rtti
 CFLAGS=-c $(DEBUG) $(OPTIMIZATION) $(FLAGS_BASE) $(WARNING_FLAGS) $(SYSTEM_FLAGS)
 INCLUDES=-I $(DIR_LIBDAN2) -I $(DIR_LIBDAN2_TOOLS) -I $(DIR_TOOLS) -I $(DIR_LOG)
 
