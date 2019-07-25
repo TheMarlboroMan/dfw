@@ -5,7 +5,7 @@ using namespace dfw;
 
 kernel::kernel(tools::log& rlog, tools::arg_manager& carg)
 	:delta_step(0.01f), log_i(rlog), audiocontroller(nullptr),
-	fps_counter_i(), screen_i(), input_i(sdlinput),
+	fps_counter_i(), screen_i(nullptr), input_i(sdlinput),
 	audio_i(nullptr),
 	arg_manager_i(carg) {
 
@@ -15,9 +15,9 @@ kernel::kernel(tools::log& rlog, tools::arg_manager& carg)
 
 void kernel::init_video_system(const window_info& iv) {
 
-	screen_i.init(iv.px_w, iv.px_h);
-	screen_i.set_logical_size(iv.logical_w, iv.logical_h);
-	screen_i.set_title(iv.title);
+	screen_i.reset(new ldv::screen(iv.px_w, iv.px_h));
+	screen_i->set_logical_size(iv.logical_w, iv.logical_h);
+	screen_i->set_title(iv.title);
 	ldv::set_cursor_visible(iv.show_cursor);
 	ldv::set_vsync(iv.vsync);
 	//TODO: What about the fullscreen thing????

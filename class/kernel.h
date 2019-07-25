@@ -45,7 +45,7 @@ class kernel {
 	audio&			get_audio() {return *audio_i;}
 
 	//!Returns the screen. So far we can only manage one.
-	ldv::screen&	 	get_screen() {return screen_i;}
+	ldv::screen&	 	get_screen() {return *screen_i.get();}
 
 	//!Returns the video resource manager.
 	ldv::resource_manager&	get_video_resource_manager() {return v_manager;}
@@ -94,7 +94,7 @@ class kernel {
 	ldv::resource_manager				v_manager;
 	lda::resource_manager				a_manager;
 	tools::fps_counter	 			fps_counter_i;
-	ldv::screen 					screen_i;
+	std::unique_ptr<ldv::screen>	screen_i;
 	tools::chrono					controller_chrono; //!< Provides a running time of the controller loop.
 
 	input						input_i;
