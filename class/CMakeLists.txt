@@ -1,0 +1,16 @@
+set(SOURCE
+	${SOURCE}
+	${CMAKE_CURRENT_SOURCE_DIR}/base_config.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/base_config.h
+	${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/input.h
+	${CMAKE_CURRENT_SOURCE_DIR}/kernel.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/kernel.h
+	${CMAKE_CURRENT_SOURCE_DIR}/resource_loader.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/resource_loader.h
+	${CMAKE_CURRENT_SOURCE_DIR}/state_controller.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/state_controller.h
+	${CMAKE_CURRENT_SOURCE_DIR}/state_driver_interface.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/state_driver_interface.h
+	PARENT_SCOPE
+)
