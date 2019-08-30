@@ -1,5 +1,7 @@
 set(SOURCE
 	${SOURCE}
+	${CMAKE_CURRENT_SOURCE_DIR}/audio.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/audio.h
 	${CMAKE_CURRENT_SOURCE_DIR}/base_config.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/base_config.h
 	${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
