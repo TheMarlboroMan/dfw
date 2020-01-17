@@ -1,7 +1,8 @@
-#ifndef PROYECTO_SDL2_BASE_CONFIGURACION_H
-#define PROYECTO_SDL2_BASE_CONFIGURACION_H
+#pragma once
 
-#include <class/dnot_config_file.h>
+#include <tools/dnot_config_file.h>
+
+#include <string>
 
 namespace dfw
 {
@@ -112,4 +113,3 @@ class base_config:
 };
 
 }
-#endif

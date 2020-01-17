@@ -1,5 +1,4 @@
-#ifndef DFRAMEWORK_INPUT_DEFINITIONS_H
-#define DFRAMEWORK_INPUT_DEFINITIONS_H
+#pragma once
 
 namespace dfw
 {
@@ -24,4 +23,3 @@ struct input_pair
 
 }
 
-#endif

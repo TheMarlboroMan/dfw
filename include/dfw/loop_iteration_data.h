@@ -1,8 +1,6 @@
-#ifndef DFRAMEWORK_CONTROLLER_LOOP_ITERATION_DATA_H
-#define DFRAMEWORK_CONTROLLER_LOOP_ITERATION_DATA_H
+#pragma once
 
 namespace dfw {
-
 
 //!Time data for controllers.
 
@@ -21,5 +19,3 @@ struct loop_iteration_data {
 };
 
 }
-
-#endif

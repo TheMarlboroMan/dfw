@@ -1,4 +1,4 @@
-#include "input.h"
+#include <dfw/input.h>
 
 using namespace dfw;
 

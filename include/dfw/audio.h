@@ -1,7 +1,8 @@
-#ifndef PROYECTO_SDL2_BASE_CONTROLADOR_AUDIO_H
-#define PROYECTO_SDL2_BASE_CONTROLADOR_AUDIO_H
+#pragma once
 
-#include <libDan2.h>
+#include <lda/audio_controller.h>
+#include <lda/music.h>
+#include <lda/sound.h>
 
 namespace dfw
 {
@@ -60,4 +61,3 @@ class audio
 };
 
 }
-#endif

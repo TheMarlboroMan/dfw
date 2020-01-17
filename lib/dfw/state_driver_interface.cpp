@@ -1,5 +1,7 @@
-#include "state_driver_interface.h"
+#include <dfw/state_driver_interface.h>
+#include <lm/sentry.h>
 #include <chrono>
+
 
 using namespace dfw;
 
@@ -30,7 +32,7 @@ void state_driver_interface::init(dfw::kernel& kernel)
 	loop(kernel);
 	kernel.get_controller_chrono().stop();
 
-	kernel.get_log()<<"controller logic ran for "<<kernel.get_controller_chrono().get_seconds()<<" seconds"<<std::endl;
+	lm::log(kernel.get_log(), lm::lvl::info)<<"controller logic ran for "<<kernel.get_controller_chrono().get_seconds()<<" seconds"<<std::endl;
 }
 
 void state_driver_interface::register_controller(int index, controller_interface& controller)
@@ -51,7 +53,7 @@ void state_driver_interface::loop(dfw::kernel& kernel)
 
 	//Delta time is measured in floats, as it is a small and precise value for
 	//each step. To accumulate large values, it is better to use a tools::chrono.
-	tools::fps_counter::tdelta 	delta_step=kernel.get_delta_step(),
+	ldtools::fps_counter::tdelta 	delta_step=kernel.get_delta_step(),
 					produced_time=0.f;
 	auto& input_i=kernel.get_input();
 	loop_iteration_data lid(delta_step);

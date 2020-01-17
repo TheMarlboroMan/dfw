@@ -1,18 +1,17 @@
-#ifndef DFRAMEWORK_INPUT_H
-#define DFRAMEWORK_INPUT_H
+#pragma once
+
+//local
+#include "input_definitions.h"
+
+//libdansdl2
+#include <ldi/sdl_input.h>
+
+//tools
+#include <tools/dnot_token.h>
 
 //std
 #include <map>
 #include <vector>
-
-//libdansdl2
-#include <input/sdl_input/sdl_input.h>
-
-//tools
-#include <class/dnot_token.h>
-
-//local
-#include "input_definitions.h"
 
 namespace dfw
 {
@@ -114,4 +113,3 @@ class input {
 };
 
 }
-#endif

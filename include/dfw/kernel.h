@@ -1,16 +1,4 @@
-#ifndef DFRAMEWORK_KERNEL_H
-#define DFRAMEWORK_KERNEL_H
-
-#include <string>
-#include <memory>
-
-#include <src/log.h>
-
-#include <input/sdl_input/sdl_input.h>
-
-#include <class/chrono.h>
-#include <class/arg_manager.h>
-#include <class/fps_counter.h>
+#pragma once
 
 #include "base_config.h"
 #include "input.h"
@@ -18,6 +6,19 @@
 #include "resource_loader.h"
 #include "window_info.h"
 #include "audio_info.h"
+
+#include <lm/logger.h>
+
+#include <ldi/sdl_input.h>
+#include <ldv/screen.h>
+
+#include <tools/chrono.h>
+#include <tools/arg_manager.h>
+
+#include <ldtools/fps_counter.h>
+
+#include <string>
+#include <memory>
 
 namespace dfw
 {
@@ -33,10 +34,10 @@ class kernel {
 	public:
 
 	//!Constructs the kernel. All parameters are mandatory.
-				kernel(tools::log&, tools::arg_manager&);
+				kernel(lm::logger&, tools::arg_manager&);
 
 	//!Returns the kernel log. Applications may want to use a different log.
-	tools::log&		get_log() {return log_i;}
+	lm::logger&		get_log() {return log_i;}
 
 	//!Returns the input framework class. Read "input" documentation.
 	input&			get_input() {return input_i;}
@@ -58,18 +59,18 @@ class kernel {
 	tools::arg_manager& 	get_arg_manager() {return arg_manager_i;}
 
 	//!Returns the fps_counter tool.
-	tools::fps_counter&	get_fps_counter() {return fps_counter_i;}
+	ldtools::fps_counter&	get_fps_counter() {return fps_counter_i;}
 
 	//!Returns the controller chrono. See member documentation.
 	tools::chrono&		get_controller_chrono() {return controller_chrono;}
 	
 	//!Returns a delta step value. See member documentation.
-	tools::fps_counter::tdelta	get_delta_step() const {
+	ldtools::fps_counter::tdelta	get_delta_step() const {
 		return delta_step;
 	}
 
 	//!Sets a new delta step value. See member documentation.
-	void 				set_delta_step(tools::fps_counter::tdelta v) {
+	void 				set_delta_step(ldtools::fps_counter::tdelta v) {
 		delta_step=v;
 	}
 
@@ -86,14 +87,14 @@ class kernel {
 
 	private:
 
-	tools::fps_counter::tdelta			delta_step;	//!< The amount of time to be consumed per call to a controller loop. By default set at 0.01f.
+	ldtools::fps_counter::tdelta			delta_step;	//!< The amount of time to be consumed per call to a controller loop. By default set at 0.01f.
 	
-	tools::log&					log_i;
+	lm::logger&					log_i;
 	std::unique_ptr<lda::audio_controller>		audiocontroller;
 	ldi::sdl_input	 				sdlinput;
 	ldv::resource_manager				v_manager;
 	lda::resource_manager				a_manager;
-	tools::fps_counter	 			fps_counter_i;
+	ldtools::fps_counter	 			fps_counter_i;
 	std::unique_ptr<ldv::screen>	screen_i;
 	tools::chrono					controller_chrono; //!< Provides a running time of the controller loop.
 
@@ -104,4 +105,3 @@ class kernel {
 };
 
 }
-#endif

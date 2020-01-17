@@ -1,17 +1,16 @@
-#ifndef DFRAMEWORK_STATE_DRIVER_INTERFACE_H
-#define DFRAMEWORK_STATE_DRIVER_INTERFACE_H
-
-#include <stdexcept>
-#include <memory>
-#include <vector>
-#include <functional>
-#include <map>
+#pragma once
 
 #include "state_controller.h"
 #include "controller_interface.h"
 #include "controller_view_manager.h"
 #include "kernel.h"
 #include "signal_broadcasting.h"
+
+#include <stdexcept>
+#include <memory>
+#include <vector>
+#include <functional>
+#include <map>
 
 namespace dfw
 {
@@ -88,4 +87,3 @@ class state_driver_interface {
 
 
 }
-#endif

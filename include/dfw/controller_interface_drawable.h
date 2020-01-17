@@ -1,7 +1,6 @@
-#ifndef DFRAMEWORK_CONTROLLER_INTERFACE_DRAWABLE_H
-#define DFRAMEWORK_CONTROLLER_INTERFACE_DRAWABLE_H
+#pragma once
 
-#include <video/screen/screen.h>
+#include <ldv/screen.h>
 
 namespace dfw
 {
@@ -16,4 +15,3 @@ class controller_interface_drawable
 };
 
 }
-#endif

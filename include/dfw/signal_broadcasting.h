@@ -1,11 +1,10 @@
-#ifndef DFRAMEWORK_MESSAGE_BROADCASTING_H
-#define DFRAMEWORK_MESSAGE_BROADCASTING_H
+#pragma once
+
+#include <tools/dnot_token.h>
 
 #include <iostream>
 #include <string>
 #include <stdexcept>
-
-#include <class/dnot_token.h>
 
 namespace dfw
 {
@@ -83,4 +82,3 @@ class signal_broadcaster {
 };
 }
 
-#endif

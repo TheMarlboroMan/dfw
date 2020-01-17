@@ -1,5 +1,8 @@
-#include "resource_loader.h"
-#include <source/string_utils.h>
+#include <dfw/resource_loader.h>
+
+#include <tools/string_utils.h>
+
+#include <ldv/image.h>
 
 using namespace dfw;
 

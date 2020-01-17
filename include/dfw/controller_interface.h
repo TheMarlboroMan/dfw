@@ -1,5 +1,4 @@
-#ifndef DFRAMEWORK_CONTROLLER_INTERFACE_H
-#define DFRAMEWORK_CONTROLLER_INTERFACE_H
+#pragma once
 
 #include "state_controller.h"
 #include "controller_view_manager.h"
@@ -105,4 +104,3 @@ class controller_interface:
 };
 
 }
-#endif

@@ -1,6 +1,8 @@
-#include "base_config.h"
+#include <dfw/base_config.h>
+
+#include <tools/string_utils.h>
+
 #include <map>
-#include <source/string_utils.h>
 
 /*
 Al crear el objeto aún no podemos cargar la información de los valores por

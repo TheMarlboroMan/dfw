@@ -1,15 +1,18 @@
-#include "kernel.h"
+#include <dfw/kernel.h>
+
+#include <lm/sentry.h>
+
 #include <cstdlib>
 
 using namespace dfw;
 
-kernel::kernel(tools::log& rlog, tools::arg_manager& carg)
+kernel::kernel(lm::logger& rlog, tools::arg_manager& carg)
 	:delta_step(0.01f), log_i(rlog), audiocontroller(nullptr),
 	fps_counter_i(), screen_i(nullptr), input_i(sdlinput),
 	audio_i(nullptr),
 	arg_manager_i(carg) {
 
-	log_i<<"Kernel is constructed."<<std::endl;
+		lm::log(rlog, lm::lvl::info)<<"Kernel is constructed."<<std::endl;
 }
 
 

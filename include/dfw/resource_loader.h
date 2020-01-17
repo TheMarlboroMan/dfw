@@ -1,10 +1,13 @@
-#ifndef DFW_RESOURCE_LOADER_H
-#define DFW_RESOURCE_LOADER_H
+#pragma once
 
+#include <tools/text_reader.h>
+
+#include <ldv/resource_manager.h>
+#include <lda/resource_manager.h>
 
 #include <stdexcept>
-#include <libDan2.h>
-#include <class/text_reader.h>
+#include <string>
+#include <vector>
 
 namespace dfw
 {
@@ -89,4 +92,3 @@ class resource_loader {
 };
 
 }
-#endif

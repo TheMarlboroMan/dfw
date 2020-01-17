@@ -1,5 +1,4 @@
-#ifndef DFRAMEWORK_STATE_CONTROLLER_H
-#define DFRAMEWORK_STATE_CONTROLLER_H
+#pragma once
 
 #include <exception>
 #include <iostream>
@@ -83,4 +82,3 @@ class state_controller {
 };
 
 }
-#endif

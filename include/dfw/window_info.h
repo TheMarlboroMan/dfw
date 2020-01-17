@@ -1,6 +1,6 @@
-#ifndef DFRAMEWORK_WINDOW_INFO
-#define DFRAMEWORK_WINDOW_INFO
+#pragma once
 
+#include <string>
 namespace dfw {
 
 //!Structure with window information.
@@ -18,7 +18,3 @@ struct window_info {
 
 
 }
-
-#endif
-
-

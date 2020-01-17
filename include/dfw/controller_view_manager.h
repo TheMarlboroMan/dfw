@@ -1,7 +1,9 @@
-#ifndef DFRAMEWORK_CONTROLLER_VIEW_MANAGER_H
-#define DFRAMEWORK_CONTROLLER_VIEW_MANAGER_H
+#pragma once
 
 #include "controller_interface_drawable.h"
+#include <ldv/screen.h>
+#include <vector>
+#include <map>
 
 namespace dfw
 {
@@ -55,4 +57,3 @@ class controller_view_manager {
 
 }
 
-#endif

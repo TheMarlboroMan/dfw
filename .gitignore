@@ -3,3 +3,5 @@ libdfw.a
 makefile_linux
 makefile
 build
+*~
+*.swp

@@ -1,5 +1,4 @@
-#ifndef DFRAMEWORK_AUDIO_INFO
-#define DFRAMEWORK_AUDIO_INFO
+#pragma once
 
 namespace dfw {
 
@@ -17,7 +16,3 @@ struct audio_info {
 
 
 }
-
-#endif
-
-

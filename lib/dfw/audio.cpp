@@ -1,4 +1,6 @@
-#include "audio.h"
+#include <dfw/audio.h>
+
+#include <algorithm>
 
 using namespace dfw;
 
