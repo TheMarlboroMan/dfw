@@ -25,5 +25,5 @@ else()
 	add_library(dfw STATIC ${SOURCE})
 endif()
 
-install(TARGETS dfw DESTINATION install/lib)
-install(DIRECTORY include/ DESTINATION install/include)
+install(TARGETS dfw DESTINATION lib)
+install(DIRECTORY include/ DESTINATION include)
