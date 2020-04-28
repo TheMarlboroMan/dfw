@@ -6,5 +6,3 @@ Before July 2016 all this was embedded in the projects. Since the translation of
 
 #TODO:
 
-- Fix dependencies in makefile.
-- Produce a simple o file?
