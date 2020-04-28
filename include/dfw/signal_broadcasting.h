@@ -1,7 +1,5 @@
 #pragma once
 
-#include <tools/dnot_token.h>
-
 #include <iostream>
 #include <string>
 #include <stdexcept>
@@ -60,7 +58,7 @@ class signal_dispatcher {
 //!Signal broadcaster class.
 
 //!It is designed to be used with composition in controllers/classes/entities
-//!that need to send messages. Must be constructed with a signal dispacher, 
+//!that need to send messages. Must be constructed with a signal dispacher,
 //!which is turn property of the state_driver_interface.
 class signal_broadcaster {
 	public:
@@ -71,7 +69,7 @@ class signal_broadcaster {
 	}
 
 	//!Sends a signal, which will take effect inmediately.
-	void				send_signal(const broadcast_signal& msg) 
+	void				send_signal(const broadcast_signal& msg)
 	{
 		dispatcher->dispatch_signal(msg);
 	}

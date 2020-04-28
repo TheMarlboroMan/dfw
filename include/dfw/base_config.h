@@ -1,6 +1,6 @@
 #pragma once
 
-#include <tools/dnot_config_file.h>
+#include <tools/json_config_file.h>
 
 #include <string>
 
@@ -19,7 +19,7 @@ namespace dfw
 //!options present on this class.
 
 class base_config:
-	public tools::dnot_config_file
+	public tools::json_config_file
 {
 	public:
 	//!Class constructor. Receives the path to the config file. Will throw
@@ -29,31 +29,31 @@ class base_config:
 	//!Returns the file version number. Can be used if an application has a
 	//!long lifespan and new configuration values are added over time, so
 	//!checks can be performed.
-	int 					get_file_version() const		{return token_from_path(get_key_file_version());}
+	int 					get_file_version() const		{return token_from_path(get_key_file_version()).GetInt();}
 
 	//!Returns the double buffering configuration value.
-	bool 					get_screen_double_buffer() const 	{return token_from_path(get_key_screen_double_buffer());}
+	bool 					get_screen_double_buffer() const 	{return token_from_path(get_key_screen_double_buffer()).GetBool();}
 
 	//!Returns the vsync configuration value.
-	bool 					get_screen_vsync() const 	{return token_from_path(get_key_screen_vsync());}
+	bool 					get_screen_vsync() const 	{return token_from_path(get_key_screen_vsync()).GetBool();}
 
 	//!Returns the audio volume configuration value.
-	int 					get_audio_volume() const		{return token_from_path(get_key_sound_volume());}
+	int 					get_audio_volume() const		{return token_from_path(get_key_sound_volume()).GetInt();}
 
 	//!Returns the music volume configuration value.
-	int 					get_music_volume() const		{return token_from_path(get_key_music_volume());}
+	int 					get_music_volume() const		{return token_from_path(get_key_music_volume()).GetInt();}
 
 	//!Returns the audio ratio configuration value, as expressed by SDL audio.
-	int 					get_audio_ratio() const		{return token_from_path(get_key_audio_ratio());}
+	int 					get_audio_ratio() const		{return token_from_path(get_key_audio_ratio()).GetInt();}
 
 	//!Returns the audio out configuration value (usually 2, left and right).
-	int 					get_audio_out() const		{return token_from_path(get_key_audio_out());}
+	int 					get_audio_out() const		{return token_from_path(get_key_audio_out()).GetInt();}
 
 	//!Returns the audio buffer configuration value. 1024 is a sane default.
-	int 					get_audio_buffers() const		{return token_from_path(get_key_audio_buffers());}
+	int 					get_audio_buffers() const		{return token_from_path(get_key_audio_buffers()).GetInt();}
 
 	//!Returns the number of audio channels.
-	int 					get_audio_channels() const		{return token_from_path(get_key_audio_channels());}
+	int 					get_audio_channels() const		{return token_from_path(get_key_audio_channels()).GetInt();}
 
 	//!Sets the double buffering value.
 	void 					set_screen_double_buffer(bool v)	{set(get_key_screen_double_buffer(), v);}

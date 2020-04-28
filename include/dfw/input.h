@@ -6,9 +6,6 @@
 //libdansdl2
 #include <ldi/sdl_input.h>
 
-//tools
-#include <tools/dnot_token.h>
-
 //std
 #include <map>
 #include <vector>
