@@ -1,13 +1,11 @@
 cmake_minimum_required(VERSION 3.5.1)
 project(dfw)
 
-option(BUILD_STATIC "Build a static library" OFF)
 option(BUILD_DEBUG "Build a debug release" OFF)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
 if(${BUILD_DEBUG})
 	set(CMAKE_BUILD_TYPE Debug)
 
@@ -16,7 +14,6 @@ else()
 endif()
 
 add_compile_options(-Wall -Wextra -Wundef -Wcast-align -Wwrite-strings -Wlogical-op -Wmissing-declarations -Wredundant-decls -Wshadow -Woverloaded-virtual -Wno-deprecated -ansi -pedantic -fno-rtti)
-
 
 set(LOG_DIR "${PROJECT_SOURCE_DIR}/../log/include/" CACHE STRING "Directory where the log repository is (-DLOG_DIR=xxx)")
 set(DANSDL2_DIR "${PROJECT_SOURCE_DIR}/../libdansdl2/include/" CACHE STRING "Directory where the libdansdl2 is (-DDANSDL2_DIR")
@@ -28,11 +25,12 @@ include_directories("include" ${LOG_DIR} ${DANSDL2_DIR} ${DANSDL2_TOOLS_DIR} ${T
 set(SOURCE "")
 add_subdirectory("${PROJECT_SOURCE_DIR}/lib")
 
-if(${BUILD_STATIC})
-	add_library(dfw STATIC ${SOURCE})
-else()
-	add_library(dfw SHARED ${SOURCE})
-endif()
+add_library(dfw_static STATIC ${SOURCE})
+set_target_properties(dfw_static PROPERTIES OUTPUT_NAME dfw)
 
-install(TARGETS dfw DESTINATION lib)
+add_library(dfw_shared SHARED ${SOURCE})
+set_target_properties(dfw_shared PROPERTIES OUTPUT_NAME dfw)
+
+install(TARGETS dfw_static DESTINATION lib)
+install(TARGETS dfw_shared DESTINATION lib)
 install(DIRECTORY include/ DESTINATION include)
