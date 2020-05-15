@@ -94,11 +94,15 @@ void state_driver_interface::loop(dfw::kernel& kernel)
 			if(ci->is_break_loop()) break;
 
 			if(states.is_change()) {
+
 				if(!ci->can_leave_state()) {
+
 					states.cancel();
 				}
 				else {
-					prepare_state(states.get_next(), states.get_current());
+
+					//current is the top of the stack, previous is the one before...
+					prepare_state(states.get_current(), states.get_previous());
 					break;
 				}
 			}
@@ -107,8 +111,13 @@ void state_driver_interface::loop(dfw::kernel& kernel)
 		//State change confirmation... Do not draw!.
 		if(states.is_change()) {
 
-			controllers[states.get_current()]->slumber(input_i);
-			ci=controllers[states.get_next()];
+			int prev=states.get_previous();
+			if(0!=prev) {
+
+				controllers[prev]->slumber(input_i);
+			}
+			
+			ci=controllers[states.get_current()];
 			ci->awake(input_i);
 			states.confirm();
 		}
