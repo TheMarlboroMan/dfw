@@ -7,103 +7,66 @@ input::input(ldi::sdl_input& i)
 
 }
 
-input::lookup_result input::get_lookup(int i) const {
-	//Esto puede dar problemas en el futuro si queremos usar el mismo
-	//input para dos cosas distintas.
-	//Vamos a cachear cada input en el dispositivo que le pertenece...
+const std::vector<input::lookup_result>& input::get_lookup(int i) const {
 
-	auto it=lookup.find(i);
+	//Insert something if not defined, so as not to crash.
+	if(!lookup.count(i)) {
 
-	if(it!=lookup.end()) {
-		return it->second;
+		lookup[i]={};
 	}
-	else {
-		lookup_result resultado(lookup_result::types::none);
 
-		auto f=[&resultado, this, i](const t_map& mapa, lookup_result::types t) {
-			resultado.type=t;
-			auto itr=mapa.equal_range(i);
-			for(auto r=itr.first; r!=itr.second; ++r) {
-				resultado.val.push_back({r->second.sdl_key, r->second.device_index});
-			}
-
-			lookup.insert(std::make_pair(i, resultado));
-		};
-
-		//Buscamos en cada uno de los mapas si algo se corresponde con
-		//la key de aplicación de entrada. Si existe se meterá
-		//en el mapa de lookup el dispositivo y el valor SDL. La
-		//lambda además actualiza el resultado para devolverlo.
-
-		if(keyboard_map.count(i)) {
-			f(keyboard_map, lookup_result::types::keyboard);
-		}
-		else if(mouse_map.count(i)) {
-			f(mouse_map, lookup_result::types::mouse);
-		}
-		else if(joystick_map.count(i)) {
-			f(joystick_map, lookup_result::types::joystick);
-		}
-
-		return resultado;
-	}
+	return lookup.at(i);
 }
 
 bool input::is_input_down(int i) const {
-	lookup_result rl=get_lookup(i);
-	switch(rl.type) {
-		case lookup_result::types::keyboard:
-			for(auto val : rl.val) {
-				if(sdlinput.is_key_down(val.val)) {
+
+	for(const auto& rl : get_lookup(i)) {
+
+		switch(rl.type) {
+			case lookup_result::types::keyboard:
+				if(sdlinput.is_key_down(rl.val)) {
 					return true;
 				}
-			}
-		break;
-		case lookup_result::types::mouse:
-			for(auto val : rl.val) {
-				if(sdlinput.is_mouse_button_down(val.val)) {
+			break;
+			case lookup_result::types::mouse:
+				if(sdlinput.is_mouse_button_down(rl.val)) {
 					return true;
 				}
-			}
-		break;
-		case lookup_result::types::joystick:
-			for(auto val : rl.val) {
-				if(sdlinput.is_joystick_button_down(val.index, val.val)) {
+			break;
+			case lookup_result::types::joystick:
+				if(sdlinput.is_joystick_button_down(rl.index, rl.val)) {
 					return true;
 				}
-			}
-		break;
-		case lookup_result::types::none: break;
+			break;
+			case lookup_result::types::none: break;
+		}
 	}
 
 	return false;
 }
 
 bool input::is_input_up(int i) const {
-	lookup_result rl=get_lookup(i);
-	switch(rl.type) {
-		case lookup_result::types::keyboard:
-			for(auto val : rl.val) {
-				if(sdlinput.is_key_up(val.val)) {
+
+	for(const auto& rl : get_lookup(i)) {
+
+		switch(rl.type) {
+			case lookup_result::types::keyboard:
+				if(sdlinput.is_key_up(rl.val)) {
 					return true;
 				}
-			}
-		break;
-		case lookup_result::types::mouse:
-			for(auto val : rl.val) {
-				if(sdlinput.is_mouse_button_up(val.val)) {
+			break;
+			case lookup_result::types::mouse:
+				if(sdlinput.is_mouse_button_up(rl.val)) {
 					return true;
 				}
-			}
-		break;
-		case lookup_result::types::joystick:
-			for(auto val : rl.val) {
-				if(sdlinput.is_joystick_button_up(val.index, val.val)) {
+			break;
+			case lookup_result::types::joystick:
+				if(sdlinput.is_joystick_button_up(rl.index, rl.val)) {
 					return true;
 				}
-			}
-		break;
-		case lookup_result::types::none: break;
+			break;
+			case lookup_result::types::none: break;
+		}
 	}
 
 	return false;
@@ -111,53 +74,78 @@ bool input::is_input_up(int i) const {
 
 bool input::is_input_pressed(int i) const
 {
-	lookup_result rl=get_lookup(i);
-	switch(rl.type) {
-		case lookup_result::types::keyboard:
-			for(auto val : rl.val) {
-				if(sdlinput.is_key_pressed(val.val)) {
+	for(const auto& rl : get_lookup(i)) {
+
+		switch(rl.type) {
+			case lookup_result::types::keyboard:
+				if(sdlinput.is_key_pressed(rl.val)) {
 					return true;
 				}
-			}
-		break;
-		case lookup_result::types::mouse:
-			for(auto val : rl.val) {
-				if(sdlinput.is_mouse_button_pressed(val.val)) {
+			break;
+			case lookup_result::types::mouse:
+				if(sdlinput.is_mouse_button_pressed(rl.val)) {
 					return true;
 				}
-			}
-		break;
-		case lookup_result::types::joystick:
-			for(auto val : rl.val) {
-				if(sdlinput.is_joystick_button_pressed(val.index, val.val)) {
+			break;
+			case lookup_result::types::joystick:
+				if(sdlinput.is_joystick_button_pressed(rl.index, rl.val)) {
 					return true;
 				}
-			}
-		break;
-		case lookup_result::types::none: break;
+			break;
+			case lookup_result::types::none: break;
+		}
 	}
 
 	return false;
 }
 
 void input::configure(const std::vector<input_pair>& v) {
+
 	for(const auto& i : v) {
+
 		configure(i);
 	}
 }
 
 void input::configure(input_pair i) {
+
+	if(i.data.type==input_description::types::none) {
+
+		return;
+	}
+
 	tinput ti={i.data.code, i.data.device};
 	auto par=std::make_pair(i.app_key, ti);
 
-	switch(i.data.type) {
-		case input_description::types::none:		break;
-		case input_description::types::keyboard: 	keyboard_map.insert(par); break;
-		case input_description::types::mouse:		mouse_map.insert(par); break;
-		case input_description::types::joystick:	joystick_map.insert(par); break;
-	}
-}
+	if(!lookup.count(i.app_key)) {
 
+		lookup[i.app_key]={};
+	}
+
+	auto type=lookup_result::types::none;
+
+	switch(i.data.type) {
+		case input_description::types::none: /*for completeness..  we already returned above*/ return;
+		case input_description::types::keyboard: 
+			keyboard_map.insert(par);
+			type=lookup_result::types::keyboard;
+		break;
+		case input_description::types::mouse:
+			mouse_map.insert(par); 
+			type=lookup_result::types::mouse;
+		break;
+		case input_description::types::joystick:
+			joystick_map.insert(par);
+			type=lookup_result::types::joystick;
+		break;
+	}
+
+	lookup.at(i.app_key).push_back({
+		type,
+		i.data.code,
+		i.data.device
+	});
+}
 
 //Elimina un input de los mapas y del lookup, liberándolo para poder volverlo
 //a configurar.
@@ -181,35 +169,34 @@ void input::clear(int key) {
 }
 
 //Gets the full input description for the given application key.
-input_description input::locate_description(int i) const {
 
-	input_description res{input_description::types::none, 0, 0};
+input_description input::locate_first_description(
+	int i
+) const {
 
-	auto l=get_lookup(i);
+	const auto& lr=get_lookup(i);
+	if(!lr.size()) {
+
+		return {input_description::types::none, 0, 0};
+	}
+
+	const auto& l=lr.front();
 
 	switch(l.type) {
 		case lookup_result::types::none:
 		break;
 
 		case lookup_result::types::keyboard:
-			res.type=input_description::types::keyboard;
-			res.code=l.val[0].val;
-
-		break;
+			return {input_description::types::keyboard, l.val, l.index};
 
 		case lookup_result::types::mouse:
-			res.type=input_description::types::mouse;
-			res.code=l.val[0].val;
-		break;
+			return {input_description::types::mouse, l.val, l.index};
 
 		case lookup_result::types::joystick:
-			res.type=input_description::types::joystick;
-			res.device=l.val[0].index;
-			res.code=l.val[0].val;
-		break;
+			return {input_description::types::joystick, l.val, l.index};
 	}
 
-	return res;
+	return {input_description::types::none, 0, 0};
 }
 
 input_pair input::from_description(const input_description& e, int key) {

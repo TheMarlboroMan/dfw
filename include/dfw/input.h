@@ -61,7 +61,10 @@ class input {
 	//!input events or codes, but an unique application action mapped to an
 	//!integer (such as escape, up, down, jump...). Will return an empty
 	//!input description if the key could not be found.
-	input_description	locate_description(int) const;
+	input_description	locate_first_description(int) const;
+
+	//!Returns all input description objects for a given key. Keys are not 
+	//TODO: std::vector<input_description>	locate_description(int) const;
 
 	//!Creates a new input pair from the given description and input key.
 	//!Remember than keys are not input events, but application actions mapped
@@ -70,7 +73,6 @@ class input {
 
 	protected:
 
-	//!Input structure used for the internal storage.
 	struct tinput{
 		int sdl_key, 		//!< Input code.
 		device_index;		//!< Device index.
@@ -81,22 +83,13 @@ class input {
 	//!Result of a cached input search.
 	struct lookup_result {
 
-		//!Result values.
-		struct values{
-			int 	val, 		//!< Value.
-					index;		//!< Index.
-		};
-
 		//!Type of input.
-		enum class types {none, keyboard, mouse, joystick};
-		types 			type;			//!< Type of input.
-		std::vector<values> 	val;	//!< Vector of possible results (keyboard, joystick, mouse... whatever is assigned to the key).
-		//!Class constructor.
-					lookup_result(types tm):type(tm) {
-		}
+		enum class types {none, keyboard, mouse, joystick} type; //!< Type of input.
+		int 		val, 		//!< Value.
+					index;		//!< Index.
 	};
 
-	mutable std::map<int, lookup_result> lookup;	//!< Internal cache. Saves the need to do repeated lookup if the same application action (key) is assigned to various input devices and codes.
+	mutable std::map<int, std::vector<lookup_result>> lookup;	//!< Internal cache. Saves the need to do repeated lookup if the same application action (key) is assigned to various input devices and codes.
 	t_map 				keyboard_map;				//!< Keyboard lookup map.
 	t_map 				mouse_map;					//!< Mouse lookup map.
 	t_map 				joystick_map;				//!< Joystick lookup map.
@@ -106,7 +99,7 @@ class input {
 	ldi::sdl_input&	 		sdlinput;				//!< Instance of the libdansdl2 component.
 
 	//! Internal lookup method.
-	lookup_result 			get_lookup(int) const;
+	const std::vector<lookup_result>&			get_lookup(int) const;
 };
 
 }
