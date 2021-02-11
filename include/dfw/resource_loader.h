@@ -53,6 +53,7 @@ class resource_loader {
 
 	//!Class constructor, receives the graphi and audio managers.
 	resource_loader(ldv::resource_manager&, lda::resource_manager&);
+	resource_loader(ldv::resource_manager&, lda::resource_manager&, const std::string&);
 
 	//!Generates textures from the vector of strings (each one a resource line)
 	//!and stores them into the manager.
@@ -89,6 +90,7 @@ class resource_loader {
 
 	ldv::resource_manager&	video_m;	//!< Reference to the video manager, for textures and surfaces.
 	lda::resource_manager&	audio_m;	//!< Reference to the audio manager, for sounds and music.
+	std::string             path;
 };
 
 }

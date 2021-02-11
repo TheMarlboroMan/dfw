@@ -7,9 +7,19 @@
 using namespace dfw;
 
 resource_loader::resource_loader(ldv::resource_manager& vrm, lda::resource_manager& arm)
-	:video_m(vrm), audio_m(arm) {
+	:video_m(vrm), audio_m(arm), path{""} {
 
 }
+
+resource_loader::resource_loader(
+	ldv::resource_manager& _vrm,
+	lda::resource_manager& _arm,
+	const std::string& _path
+):
+	video_m(_vrm),
+	audio_m(_arm),
+	path{_path}
+{}
 
 void resource_loader::process(const std::vector<std::string>& entries, void (resource_loader::*process_values)(const std::vector<std::string>&))
 {
@@ -44,7 +54,7 @@ void resource_loader::generate_surfaces(const std::vector<std::string>& resource
 
 void resource_loader::generate_sounds(const std::vector<std::string>& resources) {
 	try {
-		process(resources, &resource_loader::process_sound); 
+		process(resources, &resource_loader::process_sound);
 	}
 	catch(std::exception& e) {
 		throw std::runtime_error(std::string("unable to load sounds: ")+e.what());
@@ -66,7 +76,7 @@ void resource_loader::process_texture(const std::vector<std::string>& values) {
 	}
 
 	unsigned int indice=std::atoi(values[0].c_str());
-	std::string ruta=values[1];
+	std::string ruta=path+values[1];
 
 	ldv::image img(ruta);
 	ldv::texture * t=new ldv::texture(img);
@@ -79,7 +89,7 @@ void resource_loader::process_surface(const std::vector<std::string>& values) {
 	}
 
 	unsigned int indice=std::atoi(values[0].c_str());
-	std::string ruta=values[1];
+	std::string ruta=path+values[1];
 	unsigned int transparencia=std::atoi(values[2].c_str());
 
 	SDL_Surface * surface=ldv::load_image(ruta);
@@ -89,7 +99,7 @@ void resource_loader::process_surface(const std::vector<std::string>& values) {
 		unsigned int b=std::atoi(values[5].c_str());
 		SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, r, g, b));
 	}
-		
+
 	ldv::image * t=new ldv::image(surface);
 	video_m.insert(indice, t);
 }
@@ -101,7 +111,7 @@ void resource_loader::process_sound(const std::vector<std::string>& values) {
 	}
 
 	unsigned int indice=std::atoi(values[0].c_str());
-	std::string ruta=values[1];
+	std::string ruta=path+values[1];
 	audio_m.insert_sound(indice, ruta);
 }
 
@@ -111,6 +121,6 @@ void resource_loader::process_music(const std::vector<std::string>& values) {
 	}
 
 	unsigned int indice=std::atoi(values[0].c_str());
-	std::string ruta=values[1];
+	std::string ruta=path+values[1];
 	audio_m.insert_music(indice, ruta);
 }

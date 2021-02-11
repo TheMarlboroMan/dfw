@@ -40,7 +40,7 @@ void state_driver_interface::register_controller(int index, controller_interface
 	if(controllers.count(index)){
 		throw std::runtime_error("duplicate index for controller");
 	}
-	
+
 	controllers[index]=&controller;
 	controller.inject_state_controller(states);
 	cvm.register_controller(index, &controller);
@@ -57,15 +57,15 @@ void state_driver_interface::loop(dfw::kernel& kernel)
 					produced_time=0.f;
 	auto& input_i=kernel.get_input();
 	loop_iteration_data lid(delta_step);
-	
+
 	do {
 		common_pre_loop_input(input_i, delta_step);
 		common_pre_loop_step(delta_step);
 
 	//The elapsed time from the previous drawing is advanced in logic
-	//in discrete steps. If the value is larger than delta_step, 
-	//delta step will be used. delta_step is a fixed value but the 
-	//fps_counter keeps the timed to be consumed. We will not enter 
+	//in discrete steps. If the value is larger than delta_step,
+	//delta step will be used. delta_step is a fixed value but the
+	//fps_counter keeps the timed to be consumed. We will not enter
 	//the loop if there's not enough time to consume...
 
 		lid.step=0;
@@ -82,7 +82,7 @@ void state_driver_interface::loop(dfw::kernel& kernel)
 
 			//TODO: How about "loop_callback"? Perhaps I want to do something with it? we need another function like ci->input_loop(input_i()) that
 			//defaults to loop or something so we can do ci->get_input_callback() ? input_i().loop_callback(*ci->get_input_callback()) : input_i().loop();
-		
+
 			input_i().loop();
 
 			common_loop_input(input_i, delta_step);
@@ -116,7 +116,7 @@ void state_driver_interface::loop(dfw::kernel& kernel)
 
 				controllers[prev]->slumber(input_i);
 			}
-			
+
 			ci=controllers[states.get_current()];
 			ci->awake(input_i);
 			states.confirm();
