@@ -63,8 +63,9 @@ class input {
 	//!input description if the key could not be found.
 	input_description	locate_first_description(int) const;
 
-	//!Returns all input description objects for a given key. Keys are not 
-	//TODO: std::vector<input_description>	locate_description(int) const;
+	//!Returns all input description objects for a given key. Returns an empty
+	//!vectr if the key could not be found.
+	std::vector<input_description>	locate_description(int) const;
 
 	//!Creates a new input pair from the given description and input key.
 	//!Remember than keys are not input events, but application actions mapped

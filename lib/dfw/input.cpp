@@ -126,12 +126,12 @@ void input::configure(input_pair i) {
 
 	switch(i.data.type) {
 		case input_description::types::none: /*for completeness..  we already returned above*/ return;
-		case input_description::types::keyboard: 
+		case input_description::types::keyboard:
 			keyboard_map.insert(par);
 			type=lookup_result::types::keyboard;
 		break;
 		case input_description::types::mouse:
-			mouse_map.insert(par); 
+			mouse_map.insert(par);
 			type=lookup_result::types::mouse;
 		break;
 		case input_description::types::joystick:
@@ -197,6 +197,36 @@ input_description input::locate_first_description(
 	}
 
 	return {input_description::types::none, 0, 0};
+}
+
+std::vector<input_description> input::locate_description(
+	int i
+) const {
+
+	const auto& lr=get_lookup(i);
+	if(!lr.size()) {
+
+		return {};
+	}
+
+	std::vector<input_description> result;
+	for(const auto l : lr) {
+
+		switch(l.type) {
+			case lookup_result::types::none: break;
+			case lookup_result::types::keyboard:
+				result.push_back({input_description::types::keyboard, l.val, l.index});
+			break;
+			case lookup_result::types::mouse:
+				result.push_back({input_description::types::mouse, l.val, l.index});
+			break;
+			case lookup_result::types::joystick:
+				result.push_back({input_description::types::joystick, l.val, l.index});
+			break;
+		}
+	}
+
+	return result;
 }
 
 input_pair input::from_description(const input_description& e, int key) {
