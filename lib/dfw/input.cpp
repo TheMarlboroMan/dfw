@@ -199,7 +199,7 @@ input_description input::locate_first_description(
 	return {input_description::types::none, 0, 0};
 }
 
-std::vector<input_description> input::locate_description(
+std::vector<input_description> input::locate_descriptions(
 	int i
 ) const {
 
