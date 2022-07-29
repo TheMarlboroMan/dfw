@@ -1,5 +1,9 @@
 # changelog
 
+## [1.0.1] - 2021-7-20
+### fixed
+- Fixes compatibility with log module.
+
 ## [1.0.0] - 2020-5-15
 ### added
 

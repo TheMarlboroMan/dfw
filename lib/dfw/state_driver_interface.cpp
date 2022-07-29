@@ -1,5 +1,5 @@
 #include <dfw/state_driver_interface.h>
-#include <lm/sentry.h>
+#include <lm/log.h>
 #include <chrono>
 
 
@@ -32,7 +32,7 @@ void state_driver_interface::init(dfw::kernel& kernel)
 	loop(kernel);
 	kernel.get_controller_chrono().stop();
 
-	lm::log(kernel.get_log(), lm::lvl::info)<<"controller logic ran for "<<kernel.get_controller_chrono().get_seconds()<<" seconds"<<std::endl;
+	lm::log(kernel.get_log()).info()<<"controller logic ran for "<<kernel.get_controller_chrono().get_seconds()<<" seconds"<<std::endl;
 }
 
 void state_driver_interface::register_controller(int index, controller_interface& controller)
