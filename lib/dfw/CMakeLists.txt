@@ -4,6 +4,7 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/base_config.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/kernel.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/lib.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/resource_loader.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/state_driver_interface.cpp
 	PARENT_SCOPE
