@@ -8,7 +8,7 @@ option(BUILD_DEBUG "generate shared debug library" OFF)
 #library version
 set(MAJOR_VERSION 1)
 set(MINOR_VERSION 0)
-set(PATCH_VERSION 1)
+set(PATCH_VERSION 3)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

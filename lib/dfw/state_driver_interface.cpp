@@ -11,7 +11,7 @@ state_driver_interface::state_driver_interface(int e)
 
 }
 
-void state_driver_interface::init(dfw::kernel& kernel)
+void state_driver_interface::start(dfw::kernel& kernel)
 {
 	if(!controllers.size()){
 		throw std::runtime_error("no controllers registered.");

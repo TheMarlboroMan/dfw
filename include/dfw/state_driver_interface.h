@@ -62,9 +62,12 @@ class state_driver_interface {
 	//!Returns the signal dispatcher object.
 	signal_dispatcher&			get_signal_dispatcher() {return sd;}
 
+	virtual void				init(dfw::kernel&)=0;
+
 	//!Sort of "main" for the driver: awakes the current controller and
 	//!starts the inner loop, which will run until the application stops.
-	void					init(dfw::kernel&);
+	void						start(dfw::kernel&);
+
 
 	//!Registers a controller with the given id. Will throw if there's 
 	//!a controller with the same id.
