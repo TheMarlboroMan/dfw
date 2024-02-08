@@ -12,8 +12,13 @@ Changes will be documented under Added, Changed, Deprecated, Removed, Fixed or S
 
 ### Pending
 
+## [1.0.4] - 2024-02-08
+### changed
+- changes build system
+
 ## [1.0.3] - 2023-07-29
-## [1.0.2] - 2022-08-24
+### changed
+- Can't remember now.
 
 ## [1.0.2] - 2022-08-24
 ### changed
