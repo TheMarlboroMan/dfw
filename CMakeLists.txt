@@ -64,11 +64,6 @@ if(${BUILD_STATIC})
 	target_compile_definitions(dfw_static PUBLIC "-DLIB_VERSION=\"static\"")
 	install(TARGETS dfw_static DESTINATION lib)
 
-	if(${BUILD_DEBUG})
-
-		target_compile_definitions(dfw_static PUBLIC "-DLIBDANSDL2_DEBUG")
-	endif()
-
 	message("will build ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}-${RELEASE_VERSION}-static")
 endif()
 
@@ -78,11 +73,6 @@ if(${BUILD_SHARED})
 	set_target_properties(dfw_shared PROPERTIES OUTPUT_NAME ${LIB_FILENAME})
 	target_compile_definitions(dfw_shared PUBLIC "-DLIB_VERSION=\"shared\"")
 	install(TARGETS dfw_shared DESTINATION lib)
-
-	if(${BUILD_DEBUG})
-
-		target_compile_definitions(dfw_shared PUBLIC "-DLIBDANSDL2_DEBUG")
-	endif()
 
 	message("will build ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}-${RELEASE_VERSION}-shared")
 endif()
