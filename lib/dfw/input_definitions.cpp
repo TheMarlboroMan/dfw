@@ -31,8 +31,8 @@ std::vector<dfw::input_description> dfw::input_description_from_config_token(
 		results.push_back(
 			{
 				input_description_type_from_int(node["type"].GetInt()),
-				node["device"].GetInt(),
-				node["code"].GetInt()
+				node["code"].GetInt(),
+				node["device"].GetInt()
 			}
 		);
 	};
