@@ -20,11 +20,6 @@ std::vector<dfw::input_description> dfw::input_description_from_config_token(
 			throw std::runtime_error("app::input_description_from_config_token, expected an object in the input description");
 		}
 
-		if(node.Size() != 3) {
-
-			throw std::runtime_error("app::input_description_from_config_token, array has not size of 3");
-		}
-
 		for(const auto& val : values) {
 
 			if(!node.HasMember(val.c_str())) {
