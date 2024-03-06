@@ -1,5 +1,9 @@
 #pragma once
 
+#include <vector>
+#include <rapidjson/document.h>
+#include "base_config.h"
+
 namespace dfw
 {
 
@@ -21,5 +25,18 @@ struct input_pair
 	int						app_key;	//!< Integer representing an unique action in the application.
 };
 
+
+/**
+ * assumes the value is an array of objects with type, device and code and
+ * may contain more than one input mapping.
+ */
+std::vector<dfw::input_description> input_description_from_config_token(const rapidjson::Value&);
+
+/**
+ * returns a json node with type, device and code.
+ */
+rapidjson::Value                config_token_from_input_description(const dfw::input_description&, tools::json_config_file&);
+dfw::input_description::types   input_description_type_from_int(int);
+int                             input_description_int_from_type(dfw::input_description::types);
 }
 

@@ -12,6 +12,15 @@ Changes will be documented under Added, Changed, Deprecated, Removed, Fixed or S
 
 ### Pending
 
+## [1.1.0] - 2024-03-06
+### added
+- Promoted input parsing functions from the dfw-jumpstart to this library and changes how they behave.
+
+### changed
+- Changes how input configuration behaves (many inputs for a command are now the rule).
+- Changes how inputs are reflected in the config file.
+- Both are BACKWARDS BREAKING changes!.
+
 ## [1.0.4] - 2024-02-08
 ### changed
 - changes build system

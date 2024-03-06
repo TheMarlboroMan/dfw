@@ -111,5 +111,4 @@ class base_config:
 	//!Must be supplied by the application with the path to the audio channels value.
 	virtual std::string 				get_key_audio_channels() const=0;
 };
-
 }
