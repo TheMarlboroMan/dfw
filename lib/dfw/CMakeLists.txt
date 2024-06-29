@@ -8,5 +8,6 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/resource_loader.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/state_driver_interface.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/input_definitions.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/id_to_path_mapper.cpp
 	PARENT_SCOPE
 )

@@ -47,12 +47,16 @@ class audio
 
 	//!Proxy call to libdansdl2 audio controller's play_sound.
 	void			play_sound(lda::sound&);
-
 	//!Proxy call to libdansdl2 audio controller's play_sound.
 	void			play_sound(const lda::sound_struct&);
-
 	//!Proxy call to libdansdl2 audio controller's play_music.
 	void			play_music(const lda::music_struct&);
+	//!Proxy call to libdansdl2 audio controller's stop_music
+	void            stop_music(int _fade=0) {ac.stop_music(_fade);}
+	//!Proxy call to libdansdl2 audio controller's pause_music
+	void            pause_music() {ac.pause_music();}
+	//!Proxy call to libdansdl2 audio controller's resume_music
+	void            resume_music() {ac.resume_music();}
 
 	private:
 

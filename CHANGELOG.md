@@ -12,6 +12,17 @@ Changes will be documented under Added, Changed, Deprecated, Removed, Fixed or S
 
 ### Pending
 
+
+## [1.1.1] - 2024-03-06
+### added
+- Added the id_to_path_mapper class.
+- Added passthrough audio methods.
+### changed
+- Changes defaults to audio methods.
+
+## [1.1.0] - 2024-03-06
+### added
+- Promoted input parsing functions from the dfw-jumpstart to this library and changes how they behave.
 ## [1.1.0] - 2024-03-06
 ### added
 - Promoted input parsing functions from the dfw-jumpstart to this library and changes how they behave.
