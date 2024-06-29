@@ -13,7 +13,7 @@ Changes will be documented under Added, Changed, Deprecated, Removed, Fixed or S
 ### Pending
 
 
-## [1.1.1] - 2024-03-06
+## [1.1.1] - 2024-06-29
 ### added
 - Added the id_to_path_mapper class.
 - Added passthrough audio methods.
