@@ -1,12 +1,11 @@
 #pragma once
 
 #include <tools/json_config_file.h>
-
+#include "input_definitions.h"
 #include <string>
 
 namespace dfw
 {
-
 
 //!Base application config.
 
@@ -24,60 +23,63 @@ class base_config:
 	public:
 	//!Class constructor. Receives the path to the config file. Will throw
 	//!if the file does not exist.
-							base_config(const std::string& ruta);
+	                        base_config(const std::string& ruta);
 
 	//!Returns the file version number. Can be used if an application has a
 	//!long lifespan and new configuration values are added over time, so
 	//!checks can be performed.
-	int 					get_file_version() const		{return token_from_path(get_key_file_version()).GetInt();}
+	int                     get_file_version() const {return token_from_path(get_key_file_version()).GetInt();}
 
 	//!Returns the double buffering configuration value.
-	bool 					get_screen_double_buffer() const 	{return token_from_path(get_key_screen_double_buffer()).GetBool();}
+	bool                    get_screen_double_buffer() const {return token_from_path(get_key_screen_double_buffer()).GetBool();}
 
 	//!Returns the vsync configuration value.
-	bool 					get_screen_vsync() const 	{return token_from_path(get_key_screen_vsync()).GetBool();}
+	bool                    get_screen_vsync() const {return token_from_path(get_key_screen_vsync()).GetBool();}
 
 	//!Returns the audio volume configuration value.
-	int 					get_audio_volume() const		{return token_from_path(get_key_sound_volume()).GetInt();}
+	int                     get_audio_volume() const {return token_from_path(get_key_sound_volume()).GetInt();}
 
 	//!Returns the music volume configuration value.
-	int 					get_music_volume() const		{return token_from_path(get_key_music_volume()).GetInt();}
+	int                     get_music_volume() const {return token_from_path(get_key_music_volume()).GetInt();}
 
 	//!Returns the audio ratio configuration value, as expressed by SDL audio.
-	int 					get_audio_ratio() const		{return token_from_path(get_key_audio_ratio()).GetInt();}
+	int                     get_audio_ratio() const {return token_from_path(get_key_audio_ratio()).GetInt();}
 
 	//!Returns the audio out configuration value (usually 2, left and right).
-	int 					get_audio_out() const		{return token_from_path(get_key_audio_out()).GetInt();}
+	int                     get_audio_out() const {return token_from_path(get_key_audio_out()).GetInt();}
 
 	//!Returns the audio buffer configuration value. 1024 is a sane default.
-	int 					get_audio_buffers() const		{return token_from_path(get_key_audio_buffers()).GetInt();}
+	int                     get_audio_buffers() const {return token_from_path(get_key_audio_buffers()).GetInt();}
 
 	//!Returns the number of audio channels.
-	int 					get_audio_channels() const		{return token_from_path(get_key_audio_channels()).GetInt();}
+	int                     get_audio_channels() const {return token_from_path(get_key_audio_channels()).GetInt();}
 
 	//!Sets the double buffering value.
-	void 					set_screen_double_buffer(bool v)	{set(get_key_screen_double_buffer(), v);}
+	void                    set_screen_double_buffer(bool v) {set(get_key_screen_double_buffer(), v);}
 
 	//!Sets the double vsync value.
-	void 					set_screen_vsync(bool v)	{set(get_key_screen_vsync(), v);}
+	void                    set_screen_vsync(bool v) {set(get_key_screen_vsync(), v);}
 
 	//!Sets the audio volume value.
-	void 					set_audio_volume(int v)		{set(get_key_sound_volume(), v);}
+	void                    set_audio_volume(int v) {set(get_key_sound_volume(), v);}
 
 	//!Sets the music volume value.
-	void 					set_music_volume(int v)		{set(get_key_music_volume(), v);}
+	void                    set_music_volume(int v) {set(get_key_music_volume(), v);}
 
 	//!Sets the audio ratio value.
-	void 					set_audio_ratio(int v)		{set(get_key_audio_ratio(), v);}
+	void                    set_audio_ratio(int v) {set(get_key_audio_ratio(), v);}
 
 	//!Sets the audio outputs value.
-	void 					set_audio_out(int v)		{set(get_key_audio_out(), v);}
+	void                    set_audio_out(int v) {set(get_key_audio_out(), v);}
 
 	//!Sets the audio buffer size value.
-	void 					set_audio_buffers(int v)		{set(get_key_audio_buffers(), v);}
+	void                    set_audio_buffers(int v) {set(get_key_audio_buffers(), v);}
 
 	//!Sets the audio channels value.
-	void 					set_audio_channels(int v)		{set(get_key_audio_channels(), v);}
+	void                    set_audio_channels(int v) {set(get_key_audio_channels(), v);}
+
+	//!Stores something as a control node (input type, device and code).
+	void                    set_control_data(const std::string&, dfw::input_description::types, int, int);
 
 	protected:
 

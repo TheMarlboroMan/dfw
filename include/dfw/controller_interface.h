@@ -72,6 +72,12 @@ class controller_interface:
 	//!Signals that the state controller must change states, effectively
 	//!changing the current controller.
 	void				set_state(int v)  {
+
+		if(!can_leave_state()) {
+
+			return;
+		}
+
 		if(states==nullptr) {
 			throw std::runtime_error("state_controller was not injected");
 		}
@@ -82,6 +88,12 @@ class controller_interface:
 	//!Signals that the state controller must add a new state to the stack,
 	//!which will take the first place.
 	void				push_state(int v) {
+
+		if(!can_leave_state()) {
+
+			return;
+		}
+
 		if(states==nullptr) {
 			throw std::runtime_error("state_controller was not injected");
 		}
@@ -91,6 +103,11 @@ class controller_interface:
 
 	//!Signals that the previous controller in the stack should take the lead.
 	void				pop_state() {
+
+		if(!can_leave_state()) {
+
+			return;
+		}
 
 		if(states==nullptr) {
 			throw std::runtime_error("state_controller was not injected");

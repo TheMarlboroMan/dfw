@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <rapidjson/document.h>
-#include "base_config.h"
+#include <tools/json_config_file.h>
 
 namespace dfw
 {
@@ -24,7 +24,6 @@ struct input_pair
 	input_description		data;		//!< Device and code.
 	int						app_key;	//!< Integer representing an unique action in the application.
 };
-
 
 /**
  * assumes the value is an array of objects with type, device and code and

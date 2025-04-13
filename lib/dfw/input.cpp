@@ -151,6 +151,7 @@ void input::configure(input_pair i) {
 //a configurar.
 
 void input::clear(int key) {
+
 	if(keyboard_map.count(key)) {
 		keyboard_map.erase(key);
 	}

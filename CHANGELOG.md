@@ -12,6 +12,9 @@ Changes will be documented under Added, Changed, Deprecated, Removed, Fixed or S
 
 ### Pending
 
+## [1.1.2] - 2025-04-13
+### added
+- Adds set_control_data to config base, so it can use the internal json allocator instead of dabbling into json stuff directly.
 
 ## [1.1.1] - 2024-06-29
 ### added
