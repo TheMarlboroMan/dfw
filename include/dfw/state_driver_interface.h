@@ -6,6 +6,7 @@
 #include "kernel.h"
 #include "signal_broadcasting.h"
 
+#include <ldtools/time_definitions.h>
 #include <stdexcept>
 #include <memory>
 #include <vector>
@@ -41,23 +42,23 @@ class state_driver_interface {
 	//!Executeed before the iterations of a controller are called (as many
 	//!as needed until screen drawing can be done). Receives the input and 
 	//!delta time. It is supposed to handle common input data tasks.
-	virtual void				common_pre_loop_input(dfw::input&, float delta)=0;
+	virtual void				common_pre_loop_input(dfw::input&, ldtools::tdelta delta)=0;
 
 	//!Executed right after common_pre_loop_input, it is supposed to handle
 	//!common application logic.
-	virtual void				common_pre_loop_step(float delta)=0;
+	virtual void				common_pre_loop_step(ldtools::tdelta delta)=0;
 
 	//!Executed inside the controller iteration loop, before the controller's
 	//!loop method runs. Serves the same purpose as common_pre_loop_input.
-	virtual void				common_loop_input(dfw::input&, float delta)=0;
+	virtual void				common_loop_input(dfw::input&, ldtools::tdelta delta)=0;
 
 	//!Excutes between common_loop_input and the controller's loop method,
 	//!to handle iteration specifics.
-	virtual void				common_loop_step(float delta)=0;
+	virtual void				common_loop_step(ldtools::tdelta delta)=0;
 
 	//!Returns the maximum timestep value (in case refreshing takes to long,
 	//!which should result in slowdown).
-	virtual float				get_max_timestep() const=0;
+	virtual ldtools::tdelta		get_max_timestep() const=0;
 
 	//!Returns the signal dispatcher object.
 	signal_dispatcher&			get_signal_dispatcher() {return sd;}
