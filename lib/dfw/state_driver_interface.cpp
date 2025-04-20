@@ -51,10 +51,10 @@ void state_driver_interface::loop(dfw::kernel& kernel)
 	cvm.reserve();
 	auto& fps_counter=kernel.get_fps_counter();
 
-	//Delta time is measured in floats, as it is a small and precise value for
+	//Delta time is measured in doubles, as it is a small and precise value for
 	//each step. To accumulate large values, it is better to use a tools::chrono.
 	ldtools::fps_counter::tdelta 	delta_step=kernel.get_delta_step(),
-					produced_time=0.f;
+					produced_time=0.;
 	auto& input_i=kernel.get_input();
 	loop_iteration_data lid(delta_step);
 
