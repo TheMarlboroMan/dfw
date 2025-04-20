@@ -16,6 +16,7 @@
 #include <tools/arg_manager.h>
 
 #include <ldtools/fps_counter.h>
+#include <ldtools/type_definitions.h>
 
 #include <string>
 #include <memory>
@@ -65,12 +66,13 @@ class kernel {
 	tools::chrono&		get_controller_chrono() {return controller_chrono;}
 	
 	//!Returns a delta step value. See member documentation.
-	ldtools::fps_counter::tdelta	get_delta_step() const {
+	ldtools::tdelta	get_delta_step() const {
+
 		return delta_step;
 	}
 
 	//!Sets a new delta step value. See member documentation.
-	void 				set_delta_step(ldtools::fps_counter::tdelta v) {
+	void 				set_delta_step(ldtools::tdelta v) {
 		delta_step=v;
 	}
 
@@ -87,7 +89,7 @@ class kernel {
 
 	private:
 
-	ldtools::fps_counter::tdelta			delta_step;	//!< The amount of time to be consumed per call to a controller loop. By default set at 0.01f.
+	ldtools::tdelta			delta_step;	//!< The amount of time to be consumed per call to a controller loop. By default set at 0.01f.
 	
 	lm::logger&					log_i;
 	std::unique_ptr<lda::audio_controller>		audiocontroller;
