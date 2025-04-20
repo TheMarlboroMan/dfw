@@ -16,7 +16,7 @@
 #include <tools/arg_manager.h>
 
 #include <ldtools/fps_counter.h>
-#include <ldtools/type_definitions.h>
+#include <ldtools/time_definitions.h>
 
 #include <string>
 #include <memory>
