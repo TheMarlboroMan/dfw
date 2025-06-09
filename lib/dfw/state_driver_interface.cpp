@@ -83,7 +83,7 @@ void state_driver_interface::loop(dfw::kernel& kernel)
 			//TODO: How about "loop_callback"? Perhaps I want to do something with it? we need another function like ci->input_loop(input_i()) that
 			//defaults to loop or something so we can do ci->get_input_callback() ? input_i().loop_callback(*ci->get_input_callback()) : input_i().loop();
 
-			input_i().loop();
+			input_i.tic();
 
 			common_loop_input(input_i, delta_step);
 			common_loop_step(delta_step);

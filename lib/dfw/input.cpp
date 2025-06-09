@@ -3,9 +3,8 @@
 using namespace dfw;
 
 input::input(ldi::sdl_input& i)
-	:sdlinput(i) {
-
-}
+	:sdlinput(i)
+{ }
 
 const std::vector<input::lookup_result>& input::get_lookup(int i) const {
 
@@ -19,6 +18,11 @@ const std::vector<input::lookup_result>& input::get_lookup(int i) const {
 }
 
 bool input::is_input_down(int i) const {
+
+	if(nullptr!=input_generator && input_generator->is_active()) {
+
+		return input_generator->is_input_down(i);
+	}
 
 	for(const auto& rl : get_lookup(i)) {
 
@@ -47,6 +51,11 @@ bool input::is_input_down(int i) const {
 
 bool input::is_input_up(int i) const {
 
+	if(nullptr!=input_generator && input_generator->is_active()) {
+
+		return input_generator->is_input_up(i);
+	}
+
 	for(const auto& rl : get_lookup(i)) {
 
 		switch(rl.type) {
@@ -74,6 +83,12 @@ bool input::is_input_up(int i) const {
 
 bool input::is_input_pressed(int i) const
 {
+
+	if(nullptr!=input_generator && input_generator->is_active()) {
+
+		return input_generator->is_input_pressed(i);
+	}
+
 	for(const auto& rl : get_lookup(i)) {
 
 		switch(rl.type) {
@@ -233,4 +248,33 @@ std::vector<input_description> input::locate_descriptions(
 input_pair input::from_description(const input_description& e, int key) {
 
 	return input_pair{e, key};
+}
+
+void input::tic() {
+
+	(*this)().loop();
+
+	if(nullptr!=input_generator) {
+
+		input_generator->tic();
+	}
+
+	if(nullptr!=input_recorder) {
+
+		input_recorder->record();
+	}
+}
+
+void input::set_generator(
+	input_generator_interface * _interface
+) {
+
+	input_generator=_interface;
+}
+
+void input::set_recorder(
+	input_recorder_interface * _interface
+) {
+
+	input_recorder=_interface;
 }

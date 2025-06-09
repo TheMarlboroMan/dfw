@@ -2,6 +2,8 @@
 
 //local
 #include "input_definitions.h"
+#include "input_generator_interface.h"
+#include "input_recorder_interface.h"
 
 //libdansdl2
 #include <ldi/sdl_input.h>
@@ -9,6 +11,7 @@
 //std
 #include <map>
 #include <vector>
+#include <memory>
 
 namespace dfw
 {
@@ -44,6 +47,9 @@ class input {
 	//!then be called for finer control.
 	ldi::sdl_input&			operator()() {return sdlinput;}
 
+	//!Pools events.
+	void                tic();
+
 	//!Shortcut to know if a given input key (key being an unique mapped action,
 	//!not a device input) is down.
 	bool 				is_input_down(int) const;
@@ -71,6 +77,18 @@ class input {
 	//!Remember than keys are not input events, but application actions mapped
 	//!to an integer.
 	input_pair			from_description(const input_description&, int);
+
+/**
+ * Sets (or unsets, with nullptr) an input generator. It is assumed that some
+ * other entity OWNS this generator.
+ */
+	void                set_generator(input_generator_interface *);
+
+/**
+ * Sets (or unsets, with nullptr) an input recorder. It is assumed that some
+ * other entity OWNS this recorder.
+ */
+	void                set_recorder(input_recorder_interface *);
 
 	protected:
 
@@ -100,7 +118,9 @@ class input {
 	ldi::sdl_input&	 		sdlinput;				//!< Instance of the libdansdl2 component.
 
 	//! Internal lookup method.
-	const std::vector<lookup_result>&			get_lookup(int) const;
+	const std::vector<lookup_result>&           get_lookup(int) const;
+	input_generator_interface *                 input_generator{nullptr};
+	input_recorder_interface *                  input_recorder{nullptr};
 };
 
 }
