@@ -55,7 +55,16 @@ void input_recorder_file_8bit::record() {
 	}
 
 	stream.write(&buffer, 1);
-	//TODO: A bit extreme...
-	stream.flush();
+	if(++flush_count >= flush_size) {
+
+		stream.flush();
+		flush_count=0;
+	}
 }
 
+void input_recorder_file_8bit::set_flush_size(
+	int _val
+) {
+
+	flush_size=_val;
+}
