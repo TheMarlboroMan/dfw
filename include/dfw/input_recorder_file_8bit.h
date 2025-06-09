@@ -13,6 +13,7 @@ class input_recorder_file_8bit:
 	public:
 
 	                        input_recorder_file_8bit(const input&, const input_converter_interface&);
+	                        ~input_recorder_file_8bit();
 
 	void                    set_active(bool);
 	void                    open_file(const std::string&);

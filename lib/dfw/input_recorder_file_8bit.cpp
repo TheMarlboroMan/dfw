@@ -13,6 +13,14 @@ input_recorder_file_8bit::input_recorder_file_8bit(
 	converter{_converter}
 {}
 
+input_recorder_file_8bit::~input_recorder_file_8bit() {
+
+	if(stream.is_open()) {
+
+		stream.close();
+	}
+}
+
 
 void input_recorder_file_8bit::set_active(
 	bool _val
@@ -35,16 +43,16 @@ bool input_recorder_file_8bit::is_active() const {
 
 void input_recorder_file_8bit::record() {
 
-	char value=0;
+	char buffer=0;
 
 	for(auto val : this->inputs) {
 
 		if(in.is_input_pressed(val)) {
 
-			value |= converter.to_flag(val);
+			buffer |= converter.to_flag(val);
 		}
 	}
 
-	stream.write(&value, 1);
+	stream.write(&buffer, 1);
 }
 
