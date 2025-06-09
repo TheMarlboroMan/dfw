@@ -33,7 +33,7 @@ class input_generator_file_8bit
 	const input_converter_interface& converter;
 
 	bool                    active;
-	int                     state{0},
+	char                    state{0},
 	                        previous_state{0};
 	std::ifstream           stream;
 

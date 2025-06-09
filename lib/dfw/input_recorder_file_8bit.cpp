@@ -35,7 +35,7 @@ bool input_recorder_file_8bit::is_active() const {
 
 void input_recorder_file_8bit::record() {
 
-	int value=0;
+	char value=0;
 
 	for(auto val : this->inputs) {
 
@@ -45,7 +45,6 @@ void input_recorder_file_8bit::record() {
 		}
 	}
 
-	char buffer=static_cast<char>(value);
-	stream.write(&buffer, 1);
+	stream.write(&value, 1);
 }
 

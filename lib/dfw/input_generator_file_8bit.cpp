@@ -23,11 +23,8 @@ void input_generator_file_8bit::tic() {
 		return;
 	}
 
-	char buffer='\0';
-	stream.read(&buffer, 1);
-
 	previous_state=state;
-	state=static_cast<int8_t>(buffer);
+	stream.read(&state, 1);
 }
 
 void input_generator_file_8bit::set_active(
