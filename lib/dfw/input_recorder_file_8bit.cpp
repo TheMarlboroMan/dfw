@@ -17,6 +17,7 @@ input_recorder_file_8bit::~input_recorder_file_8bit() {
 
 	if(stream.is_open()) {
 
+		stream.flush();
 		stream.close();
 	}
 }
@@ -54,5 +55,7 @@ void input_recorder_file_8bit::record() {
 	}
 
 	stream.write(&buffer, 1);
+	//TODO: A bit extreme...
+	stream.flush();
 }
 
