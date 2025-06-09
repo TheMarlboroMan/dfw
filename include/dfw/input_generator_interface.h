@@ -20,6 +20,11 @@ class input_generator_interface {
  * the input phase comes up.
  */
 	virtual bool is_active() const=0;
+
+/**
+ * must set the active flag
+ */
+	virtual void set_active(bool)=0;
 /**
  * must return true if the app input is down.
  */

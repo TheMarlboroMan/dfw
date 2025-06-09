@@ -17,6 +17,10 @@ class input_recorder_interface {
  */
 	virtual bool    is_active() const=0;
 /**
+ * must set the active flag
+ */
+	virtual void    set_active(bool)=0;
+/**
  * must record the current bunch of inputs that are retrieved from the 
  * application input. Only the inputs in "set_inputs" (expressed in app 
  * realm integers) will be requested and stored.

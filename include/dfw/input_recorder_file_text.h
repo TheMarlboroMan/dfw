@@ -1,3 +1,5 @@
+#pragma once
+
 #include "input_recorder_interface.h"
 #include "input_converter_interface.h"
 #include "input.h"
