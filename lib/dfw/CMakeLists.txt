@@ -10,6 +10,8 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/input_definitions.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/id_to_path_mapper.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/input_generator_file_8bit.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/input_generator_file_text.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/input_recorder_file_8bit.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/input_recorder_file_text.cpp
 	PARENT_SCOPE
 )

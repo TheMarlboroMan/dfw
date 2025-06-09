@@ -25,7 +25,7 @@ void input_recorder_file_8bit::open_file(
 	const std::string& _filename
 ) {
 
-	stream.open(_filename.c_str(), std::ifstream::binary);
+	stream.open(_filename.c_str(), std::ifstream::binary | std::ifstream::trunc);
 }
 
 bool input_recorder_file_8bit::is_active() const {
@@ -35,11 +35,11 @@ bool input_recorder_file_8bit::is_active() const {
 
 void input_recorder_file_8bit::record() {
 
-	int8_t value=0;
+	int value=0;
 
 	for(auto val : this->inputs) {
 
-		if(in.is_input_down(val)) {
+		if(in.is_input_pressed(val)) {
 
 			value |= converter.to_flag(val);
 		}

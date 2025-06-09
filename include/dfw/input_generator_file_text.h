@@ -9,16 +9,16 @@
 namespace dfw {
 
 /**
-*Reads input from a binary file, bit by bit, with a maximum of 8 inputs per
-*tic. Needs a converter to translate input back and forth from app realm to
-*file realm.
+*Reads input from a text file in which each tic is separated by a space. Data
+*is stored as a string. Needs a converter to translate input back and forth 
+*from app realm to file realm.
 */
-class input_generator_file_8bit 
+class input_generator_file_text 
 	:public input_generator_interface {
 
 	public:
 
-	                        input_generator_file_8bit(const input_converter_interface&);
+	                        input_generator_file_text(const input_converter_interface&);
 	void                    open_file(const std::string&);
 	void                    set_active(bool);
 

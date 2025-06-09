@@ -1,48 +1,48 @@
-#include <dfw/input_generator_file_8bit.h>
+#include <dfw/input_generator_file_text.h>
 
 using namespace dfw;
 
 
-input_generator_file_8bit::input_generator_file_8bit(
+input_generator_file_text::input_generator_file_text(
 	const input_converter_interface& _converter
 )
 	:converter{_converter}
 { }
 
-void input_generator_file_8bit::open_file(
+void input_generator_file_text::open_file(
 	const std::string& _filename
 ) {
 
-	stream.open(_filename.c_str(), std::ifstream::binary);
+	stream.open(_filename.c_str());
 }
 
-void input_generator_file_8bit::tic() {
+void input_generator_file_text::tic() {
 
 	if(!active) {
 
 		return;
 	}
 
-	char buffer='\0';
-	stream.read(&buffer, 1);
+	int value=0;
+	stream>>value;
 
 	previous_state=state;
-	state=static_cast<int8_t>(buffer);
+	state=value;
 }
 
-void input_generator_file_8bit::set_active(
+void input_generator_file_text::set_active(
 	bool _val
 ) {
 
 	active=_val;
 }
 
-bool input_generator_file_8bit::is_active() const {
+bool input_generator_file_text::is_active() const {
 
 	return active;
 }
 
-bool input_generator_file_8bit::is_input_down(
+bool input_generator_file_text::is_input_down(
 	int _val
 ) const {
 	
@@ -50,7 +50,7 @@ bool input_generator_file_8bit::is_input_down(
 	return !(previous_state & input_flag) && (state & input_flag);
 }
 
-bool input_generator_file_8bit::is_input_up(
+bool input_generator_file_text::is_input_up(
 	int _val
 ) const {
 
@@ -58,7 +58,7 @@ bool input_generator_file_8bit::is_input_up(
 	return !(state & input_flag) && (previous_state & input_flag);
 }
 
-bool input_generator_file_8bit::is_input_pressed(
+bool input_generator_file_text::is_input_pressed(
 	int _val
 ) const {
 

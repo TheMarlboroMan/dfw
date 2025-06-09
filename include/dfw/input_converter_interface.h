@@ -5,7 +5,7 @@ namespace dfw {
 /**
  * defines how to convert from app realm to generator/recorder 
  * realm, that is, how to convert the numbers an application uses
- * to donete inputs to the flags that are used by input recorders
+ * to convert inputs to the flags that are used by input recorders
  * and replayers.
  */
 class input_converter_interface {
