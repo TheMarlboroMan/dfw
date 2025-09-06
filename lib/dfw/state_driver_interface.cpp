@@ -1,6 +1,7 @@
 #include <dfw/state_driver_interface.h>
 #include <lm/log.h>
 #include <chrono>
+#include <sstream>
 
 
 using namespace dfw;
@@ -11,8 +12,9 @@ state_driver_interface::state_driver_interface(int e)
 
 }
 
-void state_driver_interface::start(dfw::kernel& kernel)
-{
+void state_driver_interface::start(
+	dfw::kernel& kernel
+) {
 	if(!controllers.size()){
 		throw std::runtime_error("no controllers registered.");
 	}
@@ -35,19 +37,27 @@ void state_driver_interface::start(dfw::kernel& kernel)
 	lm::log(kernel.get_log()).info()<<"controller logic ran for "<<kernel.get_controller_chrono().get_seconds()<<" seconds"<<std::endl;
 }
 
-void state_driver_interface::register_controller(int index, controller_interface& controller)
-{
-	if(controllers.count(index)){
-		throw std::runtime_error("duplicate index for controller");
+void state_driver_interface::register_controller(
+	int _index, 
+	controller_interface& _controller
+) {
+
+	if(controllers.count(_index)){
+
+		std::stringstream ss;
+		ss<<"duplicate index for controller "<<_index;
+		throw std::runtime_error(ss.str());
 	}
 
-	controllers[index]=&controller;
+	controllers[_index]=&_controller;
 	controller.inject_state_controller(states);
-	cvm.register_controller(index, &controller);
+	cvm.register_controller(_index, &_controller);
 }
 
-void state_driver_interface::loop(dfw::kernel& kernel)
-{
+void state_driver_interface::loop(
+	dfw::kernel& _kernel
+) {
+
 	cvm.reserve();
 	auto& fps_counter=kernel.get_fps_counter();
 
