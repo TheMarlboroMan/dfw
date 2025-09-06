@@ -13,7 +13,7 @@ state_driver_interface::state_driver_interface(int e)
 }
 
 void state_driver_interface::start(
-	dfw::kernel& kernel
+	dfw::kernel& _kernel
 ) {
 	if(!controllers.size()){
 		throw std::runtime_error("no controllers registered.");
@@ -28,29 +28,28 @@ void state_driver_interface::start(
 	}
 
 	ci=controllers[states.get_current()];
-	ci->awake(kernel.get_input());
+	ci->awake(_kernel.get_input());
 
-	kernel.get_controller_chrono().start();
-	loop(kernel);
-	kernel.get_controller_chrono().stop();
+	_kernel.get_controller_chrono().start();
+	loop(_kernel);
+	_kernel.get_controller_chrono().stop();
 
-	lm::log(kernel.get_log()).info()<<"controller logic ran for "<<kernel.get_controller_chrono().get_seconds()<<" seconds"<<std::endl;
+	lm::log(_kernel.get_log()).info()<<"controller logic ran for "<<_kernel.get_controller_chrono().get_seconds()<<" seconds"<<std::endl;
 }
 
 void state_driver_interface::register_controller(
-	int _index, 
+	int _index,
 	controller_interface& _controller
 ) {
-
 	if(controllers.count(_index)){
 
 		std::stringstream ss;
-		ss<<"duplicate index for controller "<<_index;
+		ss<<"cannot register controller with id "<<_index<<", duplicate index, "<<controllers.count(_index)<<" found";
 		throw std::runtime_error(ss.str());
 	}
 
 	controllers[_index]=&_controller;
-	controller.inject_state_controller(states);
+	_controller.inject_state_controller(states);
 	cvm.register_controller(_index, &_controller);
 }
 
@@ -59,13 +58,13 @@ void state_driver_interface::loop(
 ) {
 
 	cvm.reserve();
-	auto& fps_counter=kernel.get_fps_counter();
+	auto& fps_counter=_kernel.get_fps_counter();
 
 	//Delta time is measured in doubles, as it is a small and precise value for
 	//each step. To accumulate large values, it is better to use a tools::chrono.
-	ldtools::tdelta 	delta_step=kernel.get_delta_step(),
+	ldtools::tdelta 	delta_step=_kernel.get_delta_step(),
 						produced_time=0.;
-	auto& input_i=kernel.get_input();
+	auto& input_i=_kernel.get_input();
 	loop_iteration_data lid(delta_step);
 
 	do {
@@ -139,8 +138,8 @@ void state_driver_interface::loop(
 			ci->request_draw(cvm);
 
 			//TODO: PASS MORE SHIT, LIKE HOW MUCH IT TOOK TO DRAW THE PREVIOUS????
-			cvm.draw(kernel.get_screen(), fps_counter.get_frame_count());
-			kernel.get_screen().update();
+			cvm.draw(_kernel.get_screen(), fps_counter.get_frame_count());
+			_kernel.get_screen().update();
 
 			produced_time+=fps_counter.end_time_produce();
 			fps_counter.loop_step();
