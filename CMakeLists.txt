@@ -85,7 +85,7 @@ IF(WIN32)
 	include_directories("${CMAKE_CURRENT_LIST_DIR}/../tools/include/")
 	include_directories("${CMAKE_CURRENT_LIST_DIR}/../rapidjson/include/")
 
-	if(${BUILD_STATIC}
+	if(${BUILD_STATIC})
 		target_compile_definitions(dfw_static PUBLIC -DWINBUILD)
 	endif()
 
