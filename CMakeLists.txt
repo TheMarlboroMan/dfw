@@ -78,8 +78,6 @@ if(${BUILD_SHARED})
 endif()
 
 IF(WIN32)
-	target_compile_definitions(dfw_static PUBLIC -DWINBUILD)
-	target_compile_definitions(dfw_shared PUBLIC -DWINBUILD)
 
 	include_directories("${CMAKE_CURRENT_LIST_DIR}/../log/include/")
 	include_directories("${CMAKE_CURRENT_LIST_DIR}/../libdansdl2/include/")
@@ -87,24 +85,31 @@ IF(WIN32)
 	include_directories("${CMAKE_CURRENT_LIST_DIR}/../tools/include/")
 	include_directories("${CMAKE_CURRENT_LIST_DIR}/../rapidjson/include/")
 
-	add_library(lm SHARED IMPORTED)
-	set_target_properties(lm PROPERTIES IMPORTED_LOCATION "C:/Program Files (x86)/lm/lib/liblm.dll")
-	set_target_properties(lm PROPERTIES IMPORTED_IMPLIB "C:/Program Files (x86)/lm/lib/liblm.dll")
+	if(${BUILD_STATIC}
+		target_compile_definitions(dfw_static PUBLIC -DWINBUILD)
+	endif()
 
-	add_library(dansdl2 SHARED IMPORTED)
-	set_target_properties(dansdl2 PROPERTIES IMPORTED_LOCATION "C:/Program Files (x86)/libdansdl2/lib/libdansdl2.dll")
-	set_target_properties(dansdl2 PROPERTIES IMPORTED_IMPLIB "C:/Program Files (x86)/libdansdl2/lib/libdansdl2.dll")
+	if(${BUILD_SHARED}) 
+		target_compile_definitions(dfw_shared PUBLIC -DWINBUILD)
 
-	add_library(ldtools SHARED IMPORTED)
-	set_target_properties(ldtools PROPERTIES IMPORTED_LOCATION "C:/Program Files (x86)/libldtools/lib/libldtools.dll")
-	set_target_properties(ldtools PROPERTIES IMPORTED_IMPLIB "C:/Program Files (x86)/libldtools/lib/libldtools.dll")
+		add_library(lm SHARED IMPORTED)
+		set_target_properties(lm PROPERTIES IMPORTED_LOCATION "C:/Program Files (x86)/lm/lib/liblm.dll")
+		set_target_properties(lm PROPERTIES IMPORTED_IMPLIB "C:/Program Files (x86)/lm/lib/liblm.dll")
 
-	add_library(tools SHARED IMPORTED)
-	set_target_properties(tools PROPERTIES IMPORTED_LOCATION "C:/Program Files (x86)/tools/lib/libtools.dll")
-	set_target_properties(tools PROPERTIES IMPORTED_IMPLIB "C:/Program Files (x86)/tools/lib/libtools.dll")
+		add_library(dansdl2 SHARED IMPORTED)
+		set_target_properties(dansdl2 PROPERTIES IMPORTED_LOCATION "C:/Program Files (x86)/libdansdl2/lib/libdansdl2.dll")
+		set_target_properties(dansdl2 PROPERTIES IMPORTED_IMPLIB "C:/Program Files (x86)/libdansdl2/lib/libdansdl2.dll")
 
-	target_link_libraries(dfw_static lm dansdl2 tools ldtools SDL2 SDL2_ttf SDL2_mixer SDL2_image freeglut glew32 glu32 opengl32 stdc++fs)
-	target_link_libraries(dfw_shared lm dansdl2 tools ldtools SDL2 SDL2_ttf SDL2_mixer SDL2_image freeglut glew32 glu32 opengl32 stdc++fs)
+		add_library(ldtools SHARED IMPORTED)
+		set_target_properties(ldtools PROPERTIES IMPORTED_LOCATION "C:/Program Files (x86)/libldtools/lib/libldtools.dll")
+		set_target_properties(ldtools PROPERTIES IMPORTED_IMPLIB "C:/Program Files (x86)/libldtools/lib/libldtools.dll")
+
+		add_library(tools SHARED IMPORTED)
+		set_target_properties(tools PROPERTIES IMPORTED_LOCATION "C:/Program Files (x86)/tools/lib/libtools.dll")
+		set_target_properties(tools PROPERTIES IMPORTED_IMPLIB "C:/Program Files (x86)/tools/lib/libtools.dll")
+
+		#target_link_libraries(dfw_shared lm dansdl2 tools ldtools SDL2 SDL2_ttf SDL2_mixer SDL2_image freeglut glew32 glu32 opengl32 stdc++fs)
+	endif()
 endif()
 
 install(DIRECTORY include/ DESTINATION include)
