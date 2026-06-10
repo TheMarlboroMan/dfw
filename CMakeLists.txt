@@ -112,8 +112,8 @@ IF(WIN32)
 
 		add_library(ldtools SHARED IMPORTED)
 		set_target_properties(ldtools PROPERTIES 
-			IMPORTED_IMPLIB "../../tools/build/libdansdl2-tools${IMPORTED_LIB_POSTFIX}.dll.a"
-			IMPORTED_LOCATION "../../tools/build/libdansdl2-tools${IMPORTED_LIB_POSTFIX}.dll"
+			IMPORTED_IMPLIB "../../libdansdl2-tools/build/libdansdl2-tools${IMPORTED_LIB_POSTFIX}.dll.a"
+			IMPORTED_LOCATION "../../libdansdl2-tools/build/libdansdl2-tools${IMPORTED_LIB_POSTFIX}.dll"
 		)
 
 		add_library(tools SHARED IMPORTED)
