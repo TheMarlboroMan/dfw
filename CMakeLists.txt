@@ -122,11 +122,7 @@ IF(WIN32)
 			IMPORTED_LOCATION "../../tools/build/libtools${IMPORTED_LIB_POSTFIX}.dll"
 		)
 
-		target_link_libraries(dfw_shared PRIVATE lm)
-		target_link_libraries(dfw_shared PRIVATE dansdl2)
-		target_link_libraries(dfw_shared PRIVATE ldtools)
-		target_link_libraries(dfw_shared PRIVATE tools)
-		target_link_libraries(dfw_shared SDL2 SDL2_ttf SDL2_mixer SDL2_image glu32 opengl32 stdc++fs)
+		target_link_libraries(dfw_shared lm dansdl2 ldtools tools SDL2 SDL2_ttf SDL2_mixer SDL2_image glu32 opengl32 stdc++fs)
 	endif()
 endif()
 
