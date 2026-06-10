@@ -7,7 +7,7 @@
 using namespace dfw;
 
 kernel::kernel(lm::logger& rlog, tools::arg_manager& carg)
-	:delta_step(0.01f), log_i(rlog), audiocontroller(nullptr),
+	:delta_step(0.01), log_i(rlog), audiocontroller(nullptr),
 	fps_counter_i(), screen_i(nullptr), input_i(sdlinput),
 	audio_i(nullptr),
 	arg_manager_i(carg) {

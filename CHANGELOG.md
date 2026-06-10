@@ -12,6 +12,10 @@ Changes will be documented under Added, Changed, Deprecated, Removed, Fixed or S
 
 ### Pending
 
+## [1.2.1] - 2026-05-23
+### fixed
+- Fixes loop iteration data definitions, timestep should be measured in doubles and not floats.
+
 ## [1.2.0] - 2025-06-09
 ### added
 - Adds input recorders and replayers.

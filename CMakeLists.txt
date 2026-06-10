@@ -9,7 +9,7 @@ option(BUILD_TESTS "Build test code" OFF)
 #library version
 set(MAJOR_VERSION 1)
 set(MINOR_VERSION 2)
-set(PATCH_VERSION 0)
+set(PATCH_VERSION 1)
 
 if(${BUILD_DEBUG})
 
@@ -38,7 +38,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_compile_options(-Wall -Wextra -Wundef -Wcast-align -Wwrite-strings -Wlogical-op -Wmissing-declarations -Wredundant-decls -Wshadow -Woverloaded-virtual -Wno-deprecated -ansi -pedantic -fno-rtti)
+add_compile_options(-Wall -Wextra -Wundef -Wcast-align -Wwrite-strings -Wlogical-op -Wmissing-declarations -Wredundant-decls -Wshadow -Woverloaded-virtual -Wno-deprecated -pedantic -fno-rtti)
 
 #Add the include directories
 include_directories("include")
