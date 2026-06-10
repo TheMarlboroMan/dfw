@@ -83,7 +83,6 @@ IF(WIN32)
 	include_directories("${CMAKE_CURRENT_LIST_DIR}/../libdansdl2/include/")
 	include_directories("${CMAKE_CURRENT_LIST_DIR}/../libdansdl2-tools/include/")
 	include_directories("${CMAKE_CURRENT_LIST_DIR}/../tools/include/")
-	include_directories("${CMAKE_CURRENT_LIST_DIR}/../rapidjson/include/")
 
 	if(${BUILD_STATIC})
 		target_compile_definitions(dfw_static PUBLIC -DWINBUILD)
@@ -92,23 +91,41 @@ IF(WIN32)
 	if(${BUILD_SHARED}) 
 		target_compile_definitions(dfw_shared PUBLIC -DWINBUILD)
 
+		set(IMPORTED_LIB_POSTFIX "")
+		if(${BUILD_DEBUG})
+
+			set(IMPORTED_LIB_POSTFIX "_debug")
+		endif()
+
+		#in windows we cannot allow unresolved symbols...
 		add_library(lm SHARED IMPORTED)
-		set_target_properties(lm PROPERTIES IMPORTED_LOCATION "C:/Program Files (x86)/lm/lib/liblm.dll")
-		set_target_properties(lm PROPERTIES IMPORTED_IMPLIB "C:/Program Files (x86)/lm/lib/liblm.dll")
+		set_target_properties(lm PROPERTIES 
+			IMPORTED_IMPLIB "../../log/build/liblm${IMPORTED_LIB_POSTFIX}.dll.a"
+			IMPORTED_LOCATION "../../log/build/liblm${IMPORTED_LIB_POSTFIX}.dll"
+		)
 
 		add_library(dansdl2 SHARED IMPORTED)
-		set_target_properties(dansdl2 PROPERTIES IMPORTED_LOCATION "C:/Program Files (x86)/libdansdl2/lib/libdansdl2.dll")
-		set_target_properties(dansdl2 PROPERTIES IMPORTED_IMPLIB "C:/Program Files (x86)/libdansdl2/lib/libdansdl2.dll")
+		set_target_properties(dansdl2 PROPERTIES 
+			IMPORTED_IMPLIB "../../libdansdl2/build/libdansdl2${IMPORTED_LIB_POSTFIX}.dll.a"
+			IMPORTED_LOCATION "../../libdansdl2/build/libdansdl2${IMPORTED_LIB_POSTFIX}.dll"
+		)
 
 		add_library(ldtools SHARED IMPORTED)
-		set_target_properties(ldtools PROPERTIES IMPORTED_LOCATION "C:/Program Files (x86)/libldtools/lib/libldtools.dll")
-		set_target_properties(ldtools PROPERTIES IMPORTED_IMPLIB "C:/Program Files (x86)/libldtools/lib/libldtools.dll")
+		set_target_properties(ldtools PROPERTIES 
+			IMPORTED_IMPLIB "../../tools/build/libdansdl2-tools${IMPORTED_LIB_POSTFIX}.dll.a"
+			IMPORTED_LOCATION "../../tools/build/libdansdl2-tools${IMPORTED_LIB_POSTFIX}.dll"
+		)
 
 		add_library(tools SHARED IMPORTED)
-		set_target_properties(tools PROPERTIES IMPORTED_LOCATION "C:/Program Files (x86)/tools/lib/libtools.dll")
-		set_target_properties(tools PROPERTIES IMPORTED_IMPLIB "C:/Program Files (x86)/tools/lib/libtools.dll")
+		set_target_properties(tools PROPERTIES 
+			IMPORTED_IMPLIB "../../tools/build/libtools${IMPORTED_LIB_POSTFIX}.dll.a"
+			IMPORTED_LOCATION "../../tools/build/libtools${IMPORTED_LIB_POSTFIX}.dll"
+		)
 
-		#target_link_libraries(dfw_shared lm dansdl2 tools ldtools SDL2 SDL2_ttf SDL2_mixer SDL2_image freeglut glew32 glu32 opengl32 stdc++fs)
+		target_link_libraries(dfw_shared PRIVATE lm)
+		target_link_libraries(dfw_shared PRIVATE dansdl2)
+		target_link_libraries(dfw_shared PRIVATE ldtools)
+		target_link_libraries(dfw_shared PRIVATE tools)
 	endif()
 endif()
 
