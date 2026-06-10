@@ -126,6 +126,7 @@ IF(WIN32)
 		target_link_libraries(dfw_shared PRIVATE dansdl2)
 		target_link_libraries(dfw_shared PRIVATE ldtools)
 		target_link_libraries(dfw_shared PRIVATE tools)
+		target_link_libraries(dfw_shared SDL2 SDL2_ttf SDL2_mixer SDL2_image glu32 opengl32 stdc++fs)
 	endif()
 endif()
 
