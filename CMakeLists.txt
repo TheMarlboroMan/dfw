@@ -81,7 +81,7 @@ IF(WIN32)
 
 	include_directories("${CMAKE_CURRENT_LIST_DIR}/../log/include/")
 	include_directories("${CMAKE_CURRENT_LIST_DIR}/../libdansdl2/include/")
-	include_directories("${CMAKE_CURRENT_LIST_DIR}/../libdansdl2-tools/include/")
+	include_directories("${CMAKE_CURRENT_LIST_DIR}/../ldtools/include/")
 	include_directories("${CMAKE_CURRENT_LIST_DIR}/../tools/include/")
 
 	if(${BUILD_STATIC})
@@ -112,8 +112,8 @@ IF(WIN32)
 
 		add_library(ldtools SHARED IMPORTED)
 		set_target_properties(ldtools PROPERTIES 
-			IMPORTED_IMPLIB "../../libdansdl2-tools/build/libldtools${IMPORTED_LIB_POSTFIX}.dll.a"
-			IMPORTED_LOCATION "../../libdansdl2-tools/build/libldtools${IMPORTED_LIB_POSTFIX}.dll"
+			IMPORTED_IMPLIB "../../ldtools/build/libldtools${IMPORTED_LIB_POSTFIX}.dll.a"
+			IMPORTED_LOCATION "../../ldtools/build/libldtools${IMPORTED_LIB_POSTFIX}.dll"
 		)
 
 		add_library(tools SHARED IMPORTED)
